@@ -3,24 +3,30 @@ FROM php:8.3-fpm-alpine AS build
 
 # Install build dependencies
 RUN apk add --no-cache \
-    git \
-    curl \
-    unzip \
     autoconf \
+    bash \
+    curl \
+    curl-dev \
     g++ \
-    make \
-    libpng-dev \
+    git \
+    icu-dev \
     libjpeg-turbo-dev \
+    libpng-dev \
     libwebp-dev \
     libzip-dev \
-    postgresql-dev \
-    icu-dev \
+    make \
     oniguruma-dev \
-    bash
+    postgresql-dev \
+    unzip \
+    && rm -rf /var/cache/apk/*
 
 # Install PHP extensions
 RUN docker-php-ext-configure gd --with-jpeg --with-webp && \
     docker-php-ext-install -j$(nproc) \
+    bcmath \
+    ctype \
+    curl \
+    exif \
     gd \
     intl \
     pcntl \
