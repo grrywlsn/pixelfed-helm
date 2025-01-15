@@ -28,14 +28,14 @@ RUN docker-php-ext-configure gd --with-jpeg --with-webp && \
     curl \
     exif \
     gd \
+    # iconv \
     intl \
+    mbstring \
+    opcache \
     pcntl \
     pdo \
     pdo_pgsql \
-    mbstring \
-    zip \
-    bcmath \
-    opcache
+    zip
 
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
