@@ -1,0 +1,41 @@
+name: Run pull request checks
+on:
+  - pull_request
+
+jobs:
+  check_semver_label:
+    name: Check for semantic version label
+    runs-on: ubuntu-latest
+    steps:
+      - uses: docker://agilepathway/pull-request-label-checker:latest
+        with:
+          one_of: major,minor,patch
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+
+  check_docker_build:
+    name: Check Docker image can build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'write'
+      discussions: 'write'
+      packages: 'write'
+      id-token: 'write'
+
+    steps:
+    - name: Git checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: 'Login to GitHub Container Registry'
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{github.actor}}
+        password: ${{secrets.GITHUB_TOKEN}}
+
+    - name: Build image
+      uses: docker/build-push-action@v4
+      with:
+        load: true
+        tags: ghcr.io/grrywlsn/pixelfed-helm:latest
