@@ -24,18 +24,16 @@ RUN apk add --no-cache \
 RUN docker-php-ext-configure gd --with-jpeg --with-webp && \
     docker-php-ext-install -j$(nproc) \
     bcmath \
-    ctype \
-    curl \
     exif \
     gd \
-    # iconv \
     intl \
-    mbstring \
-    opcache \
-    pcntl \
-    pdo \
     pdo_pgsql \
+    pgsql \
     zip
+
+# Install Redis PHP extension
+RUN pecl install redis && \
+    docker-php-ext-enable redis
 
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
@@ -48,10 +46,10 @@ RUN chown -R $(id -u):$(id -g) /var/www/html
 RUN git clone https://github.com/pixelfed/pixelfed.git . --depth=1
 
 # Install PHP dependencies
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --no-dev --optimize-autoloader  --ignore-platform-reqs
 
 # Stage 2: Production stage
-FROM php:8.2-fpm-alpine
+FROM php:8.3-fpm-alpine
 
 # Copy runtime dependencies from build stage
 COPY --from=build /usr/local/lib/php/extensions/ /usr/local/lib/php/extensions/
@@ -60,13 +58,13 @@ COPY --from=build /usr/bin/composer /usr/bin/composer
 
 # Install runtime dependencies
 RUN apk add --no-cache \
-    libpng \
+    icu-libs \
     libjpeg-turbo \
+    libpng \
     libwebp \
     libzip \
-    postgresql-libs \
-    icu-libs \
-    oniguruma
+    oniguruma \
+    postgresql-libs
 
 # Set working directory
 WORKDIR /var/www/html
