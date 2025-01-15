@@ -6,10 +6,7 @@ RUN apk add --no-cache \
     autoconf \
     bash \
     curl \
-    curl-dev \
-    g++ \
     git \
-    icu-dev \
     libjpeg-turbo-dev \
     libpng-dev \
     libwebp-dev \
