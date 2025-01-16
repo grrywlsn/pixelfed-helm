@@ -1,5 +1,5 @@
 # Stage 1: Build stage
-FROM php:8.3-fpm-alpine AS build
+FROM php:8.4-fpm-alpine AS build
 
 # Install build dependencies
 RUN apk add --no-cache \
@@ -46,7 +46,7 @@ RUN git clone https://github.com/pixelfed/pixelfed.git . --depth=1
 RUN composer install --no-dev --optimize-autoloader  --ignore-platform-reqs
 
 # Stage 2: Production stage
-FROM php:8.3-fpm-alpine
+FROM php:8.4-fpm-alpine
 
 # Copy runtime dependencies from build stage
 COPY --from=build /usr/local/lib/php/extensions/ /usr/local/lib/php/extensions/
