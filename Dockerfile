@@ -60,12 +60,9 @@ RUN apk add --no-cache \
     libpng \
     libwebp \
     libzip \
-    nginx \
     oniguruma \
-    postgresql-libs
-
-# Set up nginx config
-COPY nginx.conf /etc/nginx/nginx.conf
+    postgresql-libs \
+    sed
 
 # Set working directory
 WORKDIR /var/www/html
@@ -73,13 +70,18 @@ WORKDIR /var/www/html
 # Copy application files
 COPY --from=build /var/www/html /var/www/html
 
+# Modify `config/database.php` and `config/cache.php` to add REDIS_USERNAME and REDIS_PREFIX after REDIS_PASSWORD
+RUN sed -i '/REDIS_PASSWORD/ a\            '\''username'\'' => env('\''REDIS_USERNAME'\'', null),' /var/www/html/config/database.php \
+    && sed -i '/REDIS_PASSWORD/ a\            '\''prefix'\''   => env('\''REDIS_PREFIX'\'', '\''pixelfed_'\''),' /var/www/html/config/database.php \
+    && sed -i '/REDIS_PASSWORD/ a\                '\''prefix'\''   => env('\''REDIS_PREFIX'\'', '\''pixelfed_'\''),' /var/www/html/config/cache.php \
+    && sed -i '/REDIS_PASSWORD/ a\                '\''username'\'' => env('\''REDIS_USERNAME'\'', null),' /var/www/html/config/cache.php
+
 # Set permissions
-RUN mkdir -p /var/lib/nginx/logs /var/lib/nginx/tmp /var/cache/nginx  /var/run/nginx
-RUN chown -R www-data:www-data /var/lib/nginx /var/www/html /var/cache/nginx /var/log/nginx /var/run/nginx
+RUN chown -R www-data:www-data /var/www/html
 USER www-data
 
 # Expose port
-EXPOSE 80 9000
+EXPOSE 9000
 
 # Start PHP-FPM
-CMD ["sh", "-c", "php-fpm & nginx -g 'daemon off;'"]
+CMD ["php-fpm"]
