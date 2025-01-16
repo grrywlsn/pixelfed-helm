@@ -60,8 +60,12 @@ RUN apk add --no-cache \
     libpng \
     libwebp \
     libzip \
+    nginx \
     oniguruma \
     postgresql-libs
+
+# Set up nginx config
+COPY nginx.conf /etc/nginx/nginx.conf
 
 # Set working directory
 WORKDIR /var/www/html
@@ -70,11 +74,12 @@ WORKDIR /var/www/html
 COPY --from=build /var/www/html /var/www/html
 
 # Set permissions
-RUN chown -R www-data:www-data /var/www/html
+RUN mkdir -p /var/lib/nginx/logs /var/lib/nginx/tmp /var/cache/nginx  /var/run/nginx
+RUN chown -R www-data:www-data /var/lib/nginx /var/www/html /var/cache/nginx /var/log/nginx /var/run/nginx
 USER www-data
 
 # Expose port
-EXPOSE 9000
+EXPOSE 80 9000
 
 # Start PHP-FPM
-CMD ["php-fpm"]
+CMD ["sh", "-c", "php-fpm & nginx -g 'daemon off;'"]
