@@ -71,6 +71,7 @@ COPY --from=build /var/www/html /var/www/html
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html
+USER www-data
 
 # Expose port
 EXPOSE 9000
