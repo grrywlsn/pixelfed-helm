@@ -6,7 +6,11 @@ RUN apk add --no-cache \
     autoconf \
     bash \
     curl \
+    g++ \
+    gcc \
     git \
+    imagemagick \
+    imagemagick-dev \
     libjpeg-turbo-dev \
     libpng-dev \
     libwebp-dev \
@@ -23,6 +27,7 @@ RUN docker-php-ext-configure gd --with-jpeg --with-webp && \
     bcmath \
     exif \
     gd \
+    imagick \
     intl \
     pdo_pgsql \
     pgsql \
@@ -56,6 +61,9 @@ COPY --from=build /usr/bin/composer /usr/bin/composer
 RUN apk add --no-cache \
     icu-libs \
     libjpeg-turbo \
+    imagemagick \
+    libjpeg-turbo \
+    libxpm \
     libpng \
     libwebp \
     libzip \
@@ -63,6 +71,10 @@ RUN apk add --no-cache \
     oniguruma \
     postgresql-libs \
     sed
+
+# Install ImageMagick PHP extension
+RUN pecl install imagick && \
+    docker-php-ext-enable imagick
 
 # Set working directory
 WORKDIR /var/www/html
