@@ -6,7 +6,11 @@ RUN apk add --no-cache \
     autoconf \
     bash \
     curl \
+    g++ \
+    gcc \
     git \
+    imagemagick \
+    imagemagick-dev \
     libjpeg-turbo-dev \
     libpng-dev \
     libwebp-dev \
@@ -56,9 +60,13 @@ COPY --from=build /usr/bin/composer /usr/bin/composer
 RUN apk add --no-cache \
     icu-libs \
     libjpeg-turbo \
+    imagemagick \
+    libjpeg-turbo \
+    libxpm \
     libpng \
     libwebp \
     libzip \
+    netcat-openbsd \
     nginx \
     oniguruma \
     postgresql-libs \
@@ -81,11 +89,12 @@ RUN mkdir -p /var/lib/nginx/logs /var/lib/nginx/tmp /var/cache/nginx  /var/run/n
 RUN chown -R www-data:www-data /var/lib/nginx /var/www/html /var/cache/nginx /var/log/nginx /var/run/nginx /var/run/nginx.pid
 USER www-data
 
-# Copy Nginx configuration into the container
+# Copy nginx configuration + start script into the container
 COPY nginx.conf /etc/nginx/nginx.conf
+COPY start.sh /usr/local/bin/start.sh
 
 # Expose port
 EXPOSE 8080 9000
 
 # Start PHP-FPM
-CMD ["sh", "-c", "php-fpm & nginx -g 'daemon off;'"]
+CMD ["/bin/sh", "/usr/local/bin/start.sh"]
