@@ -37,7 +37,6 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # Set working directory
 WORKDIR /var/www/html
-RUN chown -R $(id -u):$(id -g) /var/www/html
 
 # Clone Pixelfed repository
 RUN git clone https://github.com/pixelfed/pixelfed.git . --depth=1
@@ -60,6 +59,7 @@ RUN apk add --no-cache \
     libpng \
     libwebp \
     libzip \
+    nginx \
     oniguruma \
     postgresql-libs \
     sed
@@ -77,11 +77,15 @@ RUN sed -i '/REDIS_PASSWORD/ a\            '\''username'\'' => env('\''REDIS_USE
     && sed -i '/REDIS_PASSWORD/ a\                '\''username'\'' => env('\''REDIS_USERNAME'\'', null),' /var/www/html/config/cache.php
 
 # Set permissions
-RUN chown -R www-data:www-data /var/www/html
+RUN mkdir -p /var/lib/nginx/logs /var/lib/nginx/tmp /var/cache/nginx  /var/run/nginx && touch /var/run/nginx.pid
+RUN chown -R www-data:www-data /var/lib/nginx /var/www/html /var/cache/nginx /var/log/nginx /var/run/nginx /var/run/nginx.pid
 USER www-data
 
+# Copy Nginx configuration into the container
+COPY nginx.conf /etc/nginx/nginx.conf
+
 # Expose port
-EXPOSE 9000
+EXPOSE 80 9000
 
 # Start PHP-FPM
-CMD ["php-fpm"]
+CMD ["sh", "-c", "php-fpm & nginx -g 'daemon off;'"]
