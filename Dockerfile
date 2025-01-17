@@ -85,7 +85,7 @@ USER www-data
 COPY nginx.conf /etc/nginx/nginx.conf
 
 # Expose port
-EXPOSE 80 9000
+EXPOSE 8080 9000
 
 # Start PHP-FPM
 CMD ["sh", "-c", "php-fpm & nginx -g 'daemon off;'"]
