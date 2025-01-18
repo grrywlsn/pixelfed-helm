@@ -11,7 +11,7 @@ until nc -zv 127.0.0.1 9000; do
 done
 
 # Run Laravel Passport installation command
-echo "Running php artisan commands..."
+echo "Running 'php artisan commands..."
 php artisan storage:link
 php artisan migrate --force
 php artisan import:cities
@@ -23,7 +23,8 @@ php artisan config:cache
 php artisan horizon:install
 php artisan horizon:publish
 
-sleep 2
+# Substitute in APP_DOMAIN to nginx config
+envsubst '${APP_DOMAIN}' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf
 
 # Now start nginx in the foreground
 echo "Starting nginx..."
