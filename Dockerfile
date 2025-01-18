@@ -64,7 +64,6 @@ RUN apk add --no-cache \
     icu-libs \
     libjpeg-turbo \
     imagemagick \
-    imagemagick-dev \
     libjpeg-turbo \
     libxpm \
     libpng \
