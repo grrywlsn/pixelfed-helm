@@ -67,13 +67,13 @@ COPY --from=build /usr/bin/composer /usr/bin/composer
 
 # Install runtime dependencies
 RUN apk add --no-cache \
+    gettext \
     icu-libs \
-    libjpeg-turbo \
     imagemagick \
     libjpeg-turbo \
-    libxpm \
     libpng \
     libwebp \
+    libxpm \
     libzip \
     netcat-openbsd \
     nginx \
@@ -94,12 +94,12 @@ RUN sed -i '/REDIS_PASSWORD/ a\            '\''username'\'' => env('\''REDIS_USE
     && sed -i '/REDIS_PASSWORD/ a\                '\''username'\'' => env('\''REDIS_USERNAME'\'', null),' /var/www/html/config/cache.php
 
 # Set permissions
-RUN mkdir -p /var/lib/nginx/logs /var/lib/nginx/tmp /var/cache/nginx  /var/run/nginx && touch /var/run/nginx.pid
-RUN chown -R www-data:www-data /var/lib/nginx /var/www/html /var/cache/nginx /var/log/nginx /var/run/nginx /var/run/nginx.pid
+RUN mkdir -p /var/lib/nginx/logs /var/lib/nginx/tmp /var/cache/nginx  /var/run/nginx && touch /var/run/nginx.pid && touch /etc/nginx/nginx.conf
+RUN chown -R www-data:www-data /var/lib/nginx /var/www/html /var/cache/nginx /var/log/nginx /var/run/nginx /var/run/nginx.pid /etc/nginx/nginx.conf
 USER www-data
 
 # Copy nginx configuration + start script into the container
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf.template /etc/nginx/nginx.conf.template
 COPY start.sh /usr/local/bin/start.sh
 
 # Expose port
