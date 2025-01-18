@@ -9,8 +9,6 @@ RUN apk add --no-cache \
     g++ \
     gcc \
     git \
-    imagemagick \
-    imagemagick-dev \
     libjpeg-turbo-dev \
     libpng-dev \
     libwebp-dev \
@@ -35,6 +33,11 @@ RUN docker-php-ext-configure gd --with-jpeg --with-webp && \
 # Install Redis PHP extension
 RUN pecl install redis && \
     docker-php-ext-enable redis
+
+ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
+
+RUN chmod uga+x /usr/local/bin/install-php-extensions && sync && \
+    install-php-extensions imagick
 
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
