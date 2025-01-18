@@ -1,9 +1,9 @@
 # Stage 1: Build stage
 FROM php:8.4-fpm-alpine AS build
 
-# Default version (managed by Renovate)
-# renovate: datasource=github-tags depName=pixelfed/pixelfed
-ARG PIXELFED_VERSION=v0.12.3
+# renovate: datasource=github-releases depName=pixelfed/pixelfed
+ARG PIXELFED_VERSION="v0.12.3"
+
 ENV PIXELFED_VERSION=${PIXELFED_VERSION}
 
 # Install build dependencies
