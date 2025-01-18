@@ -23,9 +23,6 @@ php artisan config:cache
 php artisan horizon:install
 php artisan horizon:publish
 
-# Substitute in APP_DOMAIN to nginx config
-envsubst '${APP_DOMAIN}' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf
-
 # Now start nginx in the foreground
 echo "Starting nginx..."
 nginx -g 'daemon off;'

@@ -65,7 +65,6 @@ COPY --from=build /usr/bin/composer /usr/bin/composer
 
 # Install runtime dependencies
 RUN apk add --no-cache \
-    gettext \
     icu-libs \
     imagemagick \
     libjpeg-turbo \
@@ -97,7 +96,7 @@ RUN chown -R www-data:www-data /var/lib/nginx /var/www/html /var/cache/nginx /va
 USER www-data
 
 # Copy nginx configuration + start script into the container
-COPY nginx.conf.template /etc/nginx/nginx.conf.template
+COPY nginx.conf /etc/nginx/nginx.conf
 COPY start.sh /usr/local/bin/start.sh
 
 # Expose port
