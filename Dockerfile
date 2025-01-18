@@ -1,6 +1,11 @@
 # Stage 1: Build stage
 FROM php:8.4-fpm-alpine AS build
 
+# Default version (managed by Renovate)
+# renovate: datasource=github-tags depName=pixelfed/pixelfed
+ARG PIXELFED_VERSION=v0.12.3
+ENV PIXELFED_VERSION=${PIXELFED_VERSION}
+
 # Install build dependencies
 RUN apk add --no-cache \
     autoconf \
@@ -46,7 +51,7 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/html
 
 # Clone Pixelfed repository
-RUN git clone https://github.com/pixelfed/pixelfed.git . --depth=1
+RUN git clone --branch ${PIXELFED_VERSION} --depth=1 https://github.com/pixelfed/pixelfed.git .
 
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader  --ignore-platform-reqs
