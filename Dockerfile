@@ -1,6 +1,8 @@
 # Stage 1: Build stage
 FROM php:8.4-fpm-alpine AS build
 
+# See: https://github.com/pixelfed/pixelfed
+#
 # renovate: datasource=github-releases depName=pixelfed/pixelfed
 ARG PIXELFED_VERSION="v0.12.3"
 
