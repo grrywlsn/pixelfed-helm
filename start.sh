@@ -1,5 +1,24 @@
 #!/bin/sh
 
+# Check if the .env file exists
+if [ ! -f /var/www/html/.env ]; then
+  echo "Creating /var/www/html/.env file with current environment variables..."
+  
+  # Write all environment variables to the .env file
+  printenv | while IFS= read -r line; do
+    # Escape special characters in variable values to ensure compatibility
+    key=$(echo "$line" | cut -d'=' -f1)
+    value=$(echo "$line" | cut -d'=' -f2- | sed 's/"/\\"/g')
+    
+    # Append to the .env file
+    echo "$key=\"$value\"" >> /var/www/html/.env
+  done
+
+  echo "/var/www/html/.env file created successfully."
+else
+  echo "/var/www/html/.env already exists. Skipping creation."
+fi
+
 # Start PHP-FPM in the background
 php-fpm &
 
