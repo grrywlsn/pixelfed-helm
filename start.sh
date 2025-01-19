@@ -19,6 +19,9 @@ else
   echo "/var/www/html/.env already exists. Skipping creation."
 fi
 
+# Copy over Pixelfed's stock images (header image, empty avatar etc) since we've mounted the public volume
+cp -r /var/www/html/storage/app/public-stock/* /var/www/html/storage/app/public
+
 # Start PHP-FPM in the background
 php-fpm &
 

@@ -90,6 +90,7 @@ WORKDIR /var/www/html
 
 # Copy application files
 COPY --from=build /var/www/html /var/www/html
+COPY --from=build /var/www/html/storage/app/public /var/www/html/storage/app/public-stock
 
 # Modify `config/database.php` and `config/cache.php` to add REDIS_USERNAME and REDIS_PREFIX after REDIS_PASSWORD
 RUN sed -i '/REDIS_PASSWORD/ a\            '\''username'\'' => env('\''REDIS_USERNAME'\'', null),' /var/www/html/config/database.php \
