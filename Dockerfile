@@ -37,7 +37,8 @@ RUN docker-php-ext-configure gd --with-jpeg --with-webp && \
 
 # Install Redis PHP extension
 RUN pecl install redis && \
-    docker-php-ext-enable redis
+    docker-php-ext-enable redis \
+    && docker-php-ext-enable pcntl
 
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 
