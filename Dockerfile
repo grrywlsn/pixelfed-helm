@@ -77,7 +77,8 @@ RUN apk add --no-cache \
     nginx \
     oniguruma \
     postgresql-libs \
-    sed
+    sed \
+    shadow
 
 # Set working directory
 WORKDIR /var/www/html
