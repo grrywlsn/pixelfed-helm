@@ -107,6 +107,7 @@ USER www-data
 # Copy nginx configuration + start script into the container
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY start.sh /usr/local/bin/start.sh
+COPY php.ini /usr/local/etc/php/php.ini
 
 # Expose port
 EXPOSE 8080 9000
