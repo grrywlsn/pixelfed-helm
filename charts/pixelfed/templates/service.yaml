@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "pixelfed.fullname" . }}
+  labels:
+    app: {{ include "pixelfed.fullname" . }}
+spec:
+  sessionAffinity: None
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: http
+  selector:
+    app: {{ include "pixelfed.fullname" . }}

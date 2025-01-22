@@ -1,0 +1,106 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "pixelfed.fullname" . }}
+  labels:
+    app: {{ include "pixelfed.fullname" . }}
+spec:
+  minReadySeconds: 1
+  progressDeadlineSeconds: 120
+  replicas: 1 # TODO
+  revisionHistoryLimit: 5
+  selector:
+    matchLabels:
+      app: {{ include "pixelfed.fullname" . }}
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: {{ include "pixelfed.fullname" . }}
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                        - {{ include "pixelfed.fullname" . }}
+                topologyKey: failure-domain.beta.kubernetes.io/zone
+              weight: 100
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - {{ include "pixelfed.fullname" . }}
+              topologyKey: kubernetes.io/hostname
+      containers:
+        - name: web
+          image: {{ .Values.image.repo }}:{{ .Values.image.tag }}
+          envFrom:
+            - configMapRef:
+                name: "{{ include "pixelfed.fullname" . }}"
+            - secretRef:
+                name: "{{ include "pixelfed.fullname" . }}"
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+          imagePullPolicy: Always
+          startupProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 2
+            failureThreshold: 150 # 5 minutes
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 2
+            failureThreshold: 2
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 2
+            failureThreshold: 2
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+            - name: upload-folder
+              mountPath: /var/www/html/storage/app/public
+        - name: worker
+          envFrom:
+            - configMapRef:
+                name: "{{ include "pixelfed.fullname" . }}"
+            - secretRef:
+                name: "{{ include "pixelfed.fullname" . }}"
+          image: {{ .Values.image.repo }}:{{ .Values.image.tag }}
+          workingDir: /var/www/html
+          command: ["php"]
+          args: ["artisan", "horizon"]
+          imagePullPolicy: Always
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+            - name: upload-folder
+              mountPath: /var/www/html/storage/app/public
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext:
+        fsGroup: 1000
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - name: upload-folder
+          persistentVolumeClaim:
+            claimName: {{ include "pixelfed.fullname" . }}
