@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "pixelfed.fullname" . }}
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: 100m
+    nginx.org/client-max-body-size: 100m
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header X-Forwarded-Proto $scheme;
+      proxy_set_header X-Forwarded-Port $server_port;
+      proxy_set_header X-Forwarded-Host $host;
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: {{ required "config.APP_DOMAIN is required but missing" .Values.config.APP_DOMAIN | quote }}
+      http:
+        paths:
+          - backend:
+              service:
+                name: {{ include "pixelfed.fullname" . }}
+                port:
+                  number: 8080
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - {{ required "config.APP_DOMAIN is required but missing" .Values.config.APP_DOMAIN | quote }}
+      secretName: "{{ include "pixelfed.fullname" . }}-tls"
