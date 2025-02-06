@@ -128,6 +128,14 @@ jobs:
         registry_username: __token__
         registry_password: ${{ secrets.GITHUB_TOKEN }}
 
+    - name: Set up SSH Key
+      if: github.ref == 'refs/heads/main'
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan github.com >> ~/.ssh/known_hosts
+
     - name: Commit and push changes
       if: github.ref == 'refs/heads/main'
       run: |
@@ -135,4 +143,4 @@ jobs:
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git add charts/pixelfed/Chart.yaml charts/pixelfed/values.yaml
         git commit -m "Update helm chart version and image tag to ${{ steps.set-version-tag.outputs.version-tag }}"
-        git push origin main
+        git push git@github.com:grrywlsn/pixelfed-helm.git main
