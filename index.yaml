@@ -2,10 +2,17 @@ apiVersion: v1
 entries:
   pixelfed:
   - apiVersion: v2
+    created: "2025-02-06T23:35:40.729587712Z"
+    digest: 3f2862225f5d1600215ac98537e8587b85b810dd69189f7b52131626c2a680d1
+    name: pixelfed
+    urls:
+    - https://github.com/grrywlsn/pixelfed-helm/releases/download/pixelfed-v1.0.1/pixelfed-v1.0.1.tgz
+    version: v1.0.1
+  - apiVersion: v2
     created: "2025-02-06T23:00:14.180221972Z"
     digest: c202e7f480ac6cb9d29966cedcd8c56c1a291c339be7b3d402b052040b6529a2
     name: pixelfed
     urls:
     - https://github.com/grrywlsn/pixelfed-helm/releases/download/pixelfed-v1.0.0/pixelfed-v1.0.0.tgz
     version: v1.0.0
-generated: "2025-02-06T23:00:14.180230919Z"
+generated: "2025-02-06T23:35:40.729599274Z"
