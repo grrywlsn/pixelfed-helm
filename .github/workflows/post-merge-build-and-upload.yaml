@@ -26,6 +26,7 @@ jobs:
       uses: "WyriHaximus/github-action-get-previous-tag@v1"
       with:
         fallback: "${{ env.VERSION_TAG }}"
+        prefix: v
       env:
         GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
