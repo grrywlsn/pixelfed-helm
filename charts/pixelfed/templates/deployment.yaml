@@ -22,26 +22,6 @@ spec:
       labels:
         app: {{ include "pixelfed.fullname" . }}
     spec:
-      affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - podAffinityTerm:
-                labelSelector:
-                  matchExpressions:
-                    - key: app
-                      operator: In
-                      values:
-                        - {{ include "pixelfed.fullname" . }}
-                topologyKey: failure-domain.beta.kubernetes.io/zone
-              weight: 100
-          requiredDuringSchedulingIgnoredDuringExecution:
-            - labelSelector:
-                matchExpressions:
-                  - key: app
-                    operator: In
-                    values:
-                      - {{ include "pixelfed.fullname" . }}
-              topologyKey: kubernetes.io/hostname
       containers:
         - name: web
           image: {{ .Values.image.repo }}:{{ .Values.image.tag }}
@@ -60,7 +40,7 @@ spec:
               port: 8080
             initialDelaySeconds: 5
             periodSeconds: 2
-            failureThreshold: 150 # 5 minutes
+            failureThreshold: 150
           livenessProbe:
             tcpSocket:
               port: 8080
