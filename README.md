@@ -1,5 +1,10 @@
 # Using the chart
 
+```
+helm repo add pixelfed https://grrywlsn.github.io/pixelfed-helm
+helm repo update
+```
+
 ## Chart values
 
 Required:

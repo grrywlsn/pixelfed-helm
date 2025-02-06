@@ -117,16 +117,11 @@ jobs:
       run: |
         sed -i 's/^  tag: .*/  tag: "${{ steps.set-version-tag.outputs.version-tag }}"/' charts/pixelfed/values.yaml
 
-    - name: Publish chart
+    - name: Run chart-releaser
       if: github.ref == 'refs/heads/main'
-      uses: appany/helm-oci-chart-releaser@v0.4.1
-      with:
-        name: pixelfed
-        tag: "${{ steps.set-version-tag.outputs.version-tag }}"
-        repository: grrywlsn/pixelfed-helm
-        registry: ghcr.io
-        registry_username: __token__
-        registry_password: ${{ secrets.GITHUB_TOKEN }}
+      uses: helm/chart-releaser-action@v1.7.0
+      env:
+        CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
     - name: Set up SSH Key
       if: github.ref == 'refs/heads/main'
