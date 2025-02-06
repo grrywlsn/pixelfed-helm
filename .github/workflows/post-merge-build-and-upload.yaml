@@ -107,6 +107,11 @@ jobs:
         push: true
         tags: ghcr.io/grrywlsn/pixelfed-helm:${{ steps.set-version-tag.outputs.version-tag }}
 
+    - name: Update helm chart version
+      if: github.ref == 'refs/heads/main'
+      run: |
+        sed -i "s/^version:.*/version: ${{ steps.set-version-tag.outputs.version-tag }}/" charts/pixelfed/Chart.yaml
+
     - name: Publish chart
       if: github.ref == 'refs/heads/main'
       uses: appany/helm-oci-chart-releaser@v0.4.1
