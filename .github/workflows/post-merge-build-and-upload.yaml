@@ -2,10 +2,8 @@ name: Tag, Build and upload post-merge
 on:
   pull_request:
     types: [closed]
-
 env:
   VERSION_TAG: 0.0.0
-
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
@@ -14,95 +12,91 @@ jobs:
       discussions: 'write'
       packages: 'write'
       id-token: 'write'
-
     steps:
-    - name: Git checkout
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-
-    - name: 'Get Previous tag'
-      id: previoustag
-      uses: "WyriHaximus/github-action-get-previous-tag@v1"
-      with:
-        fallback: "${{ env.VERSION_TAG }}"
-      env:
-        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-
-    - name: 'Get next version'
-      id: semvers
-      uses: "WyriHaximus/github-action-next-semvers@v1"
-      with:
-        version: ${{ steps.previoustag.outputs.tag }}
-
-    # Major version
-    - uses: softprops/action-gh-release@v1
-      if: contains(github.event.pull_request.labels.*.name, 'major')
-      with:
-        generate_release_notes: true
-        token: "${{ secrets.GITHUB_TOKEN }}"
-        tag_name: "${{ steps.semvers.outputs.v_major }}"
-
-    - id: set-version-env-major
-      if: contains(github.event.pull_request.labels.*.name, 'major')
-      run: |
-        echo "VERSION_TAG=${{ steps.semvers.outputs.v_major }}" >> $GITHUB_ENV
-
-    # Minor version
-    - uses: softprops/action-gh-release@v1
-      if: contains(github.event.pull_request.labels.*.name, 'minor')
-      with:
-        generate_release_notes: true
-        token: "${{ secrets.GITHUB_TOKEN }}"
-        tag_name: "${{ steps.semvers.outputs.v_minor }}"
-
-    - id: set-version-env-minor
-      if: contains(github.event.pull_request.labels.*.name, 'minor')
-      run: |
-        echo "VERSION_TAG=${{ steps.semvers.outputs.v_minor }}" >> $GITHUB_ENV
-
-    # Patch version
-    - uses: softprops/action-gh-release@v1
-      if: contains(github.event.pull_request.labels.*.name, 'patch')
-      with:
-        generate_release_notes: true
-        token: "${{ secrets.GITHUB_TOKEN }}"
-        tag_name: "${{ steps.semvers.outputs.v_patch }}"
-
-    - id: set-version-env-patch
-      if: contains(github.event.pull_request.labels.*.name, 'patch')
-      run: |
-        echo "VERSION_TAG=${{ steps.semvers.outputs.v_patch }}" >> $GITHUB_ENV
-
-    - name: Set version tag
-      id: set-version-tag
-      run: |
-        echo "Version tag is ${VERSION_TAG}"
-        echo "version-tag=${VERSION_TAG}" >> $GITHUB_OUTPUT
-
-    - uses: softprops/action-gh-release@v1
-      name: "Tag release"
-      with:
-        generate_release_notes: true
-        token: "${{ secrets.GITHUB_TOKEN }}"
-        tag_name: "${{ steps.set-version-tag.outputs.version-tag }}"
-
-    - name: 'Login to GitHub Container Registry'
-      uses: docker/login-action@v3
-      with:
-        registry: ghcr.io
-        username: ${{github.actor}}
-        password: ${{secrets.GITHUB_TOKEN}}
-
-    - name: Build docker image
-      uses: docker/build-push-action@v4
-      with:
-        load: true
-        tags: ghcr.io/grrywlsn/pixelfed-helm:${{ steps.set-version-tag.outputs.version-tag }}
-
-    - name: Push docker image
-      if: github.ref == 'refs/heads/main'
-      uses: docker/build-push-action@v4
-      with:
-        push: true
-        tags: ghcr.io/grrywlsn/pixelfed-helm:${{ steps.set-version-tag.outputs.version-tag }}
+      - name: Git checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: 'Get Previous tag'
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@v1"
+        with:
+          fallback: "${{ env.VERSION_TAG }}"
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      - name: 'Get next version'
+        id: semvers
+        uses: "WyriHaximus/github-action-next-semvers@v1"
+        with:
+          version: ${{ steps.previoustag.outputs.tag }}
+      # Major version
+      - uses: softprops/action-gh-release@v1
+        if: contains(github.event.pull_request.labels.*.name, 'major')
+        with:
+          generate_release_notes: true
+          token: "${{ secrets.GITHUB_TOKEN }}"
+          tag_name: "${{ steps.semvers.outputs.v_major }}"
+      - id: set-version-env-major
+        if: contains(github.event.pull_request.labels.*.name, 'major')
+        run: |
+          echo "VERSION_TAG=${{ steps.semvers.outputs.v_major }}" >> $GITHUB_ENV
+      # Minor version
+      - uses: softprops/action-gh-release@v1
+        if: contains(github.event.pull_request.labels.*.name, 'minor')
+        with:
+          generate_release_notes: true
+          token: "${{ secrets.GITHUB_TOKEN }}"
+          tag_name: "${{ steps.semvers.outputs.v_minor }}"
+      - id: set-version-env-minor
+        if: contains(github.event.pull_request.labels.*.name, 'minor')
+        run: |
+          echo "VERSION_TAG=${{ steps.semvers.outputs.v_minor }}" >> $GITHUB_ENV
+      # Patch version
+      - uses: softprops/action-gh-release@v1
+        if: contains(github.event.pull_request.labels.*.name, 'patch')
+        with:
+          generate_release_notes: true
+          token: "${{ secrets.GITHUB_TOKEN }}"
+          tag_name: "${{ steps.semvers.outputs.v_patch }}"
+      - id: set-version-env-patch
+        if: contains(github.event.pull_request.labels.*.name, 'patch')
+        run: |
+          echo "VERSION_TAG=${{ steps.semvers.outputs.v_patch }}" >> $GITHUB_ENV
+      - name: Set version tag
+        id: set-version-tag
+        run: |
+          echo "Version tag is ${VERSION_TAG}"
+          echo "version-tag=${VERSION_TAG}" >> $GITHUB_OUTPUT
+      - uses: softprops/action-gh-release@v1
+        name: "Tag release"
+        with:
+          generate_release_notes: true
+          token: "${{ secrets.GITHUB_TOKEN }}"
+          tag_name: "${{ steps.set-version-tag.outputs.version-tag }}"
+      - name: 'Login to GitHub Container Registry'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{github.actor}}
+          password: ${{secrets.GITHUB_TOKEN}}
+      - name: Build docker image
+        uses: docker/build-push-action@v4
+        with:
+          load: true
+          tags: ghcr.io/grrywlsn/pixelfed-helm:${{ steps.set-version-tag.outputs.version-tag }}
+      - name: Push docker image
+        if: github.ref == 'refs/heads/main'
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          tags: ghcr.io/grrywlsn/pixelfed-helm:${{ steps.set-version-tag.outputs.version-tag }}
+      - name: Publish chart
+        if: github.ref == 'refs/heads/main'
+        uses: appany/helm-oci-chart-releaser@v0.4.1
+        with:
+          name: pixelfed
+          tag: "${{ steps.set-version-tag.outputs.version-tag }}"
+          repository: grrywlsn/pixelfed-helm
+          registry: ghcr.io
+          registry_username: __token__
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
