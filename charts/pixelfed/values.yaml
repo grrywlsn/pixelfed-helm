@@ -1,6 +1,6 @@
 image:
   repo: "ghcr.io/grrywlsn/pixelfed-helm"
-  tag: "v1.0.1"
+  tag: "v1.0.2"
 config:
   # Domain and session config
   # ADMIN_DOMAIN: Defaults to APP_DOMAIN
