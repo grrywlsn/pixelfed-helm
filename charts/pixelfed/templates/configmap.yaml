@@ -7,7 +7,6 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation
     helm.sh/hook-weight: "-10"
 data:
-config:
   ACCOUNT_DELETE_AFTER: {{ .Values.config.ACCOUNT_DELETE_AFTER | quote }}
   ACCOUNT_DELETION: {{ .Values.config.ACCOUNT_DELETION | quote }}
   ACTIVITY_PUB: {{ .Values.config.ACTIVITY_PUB | quote }}
