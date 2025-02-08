@@ -72,7 +72,7 @@ COPY --from=build /usr/local/etc/php/conf.d/ /usr/local/etc/php/conf.d/
 COPY --from=build /usr/bin/composer /usr/bin/composer
 
 # Install runtime dependencies
-RUN apk update && apk add --no-cache \
+RUN apk add --no-cache \
     icu-libs \
     imagemagick \
     libjpeg-turbo \
@@ -81,7 +81,7 @@ RUN apk update && apk add --no-cache \
     libxpm \
     libzip \
     netcat-openbsd \
-    nginx=${NGINX_VERSION} \
+    nginx \
     oniguruma \
     postgresql-libs \
     sed \
