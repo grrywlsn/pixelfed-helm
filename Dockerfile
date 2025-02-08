@@ -1,5 +1,5 @@
 # Stage 1: Build stage
-FROM php:8.3-fpm-alpine3.20 AS build
+FROM php:8.4-fpm-alpine3.20 AS build
 
 # renovate: datasource=github-releases depName=pixelfed/pixelfed
 # ARG PIXELFED_VERSION="v0.12.4"
@@ -64,7 +64,7 @@ RUN git clone --branch ${PIXELFED_VERSION} --depth=1 https://github.com/pixelfed
 RUN composer install --no-dev --optimize-autoloader  --ignore-platform-reqs
 
 # Stage 2: Production stage
-FROM php:8.3-fpm-alpine3.20
+FROM php:8.4-fpm-alpine3.20
 
 # Copy runtime dependencies from build stage
 COPY --from=build /usr/local/lib/php/extensions/ /usr/local/lib/php/extensions/
