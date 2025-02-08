@@ -8,6 +8,8 @@ ARG PIXELFED_VERSION="dev"
 # Renovate: datasource=repology depName=alpine_3_20/nginx versioning=loose
 ARG NGINX_VERSION=1.27.0
 
+RUN apk list -a nginx
+
 # Install build dependencies
 RUN apk add --no-cache \
     autoconf \
@@ -35,6 +37,7 @@ RUN docker-php-ext-configure gd --with-jpeg --with-webp && \
     intl \
     pdo_pgsql \
     pgsql \
+    vips \
     zip
 
 # Install Redis PHP extension
@@ -64,7 +67,7 @@ RUN git clone --branch ${PIXELFED_VERSION} --depth=1 https://github.com/pixelfed
 RUN composer install --no-dev --optimize-autoloader  --ignore-platform-reqs
 
 # Stage 2: Production stage
-FROM php:8.3-fpm-alpine
+FROM php:8.3-fpm-alpine3.20
 
 # Copy runtime dependencies from build stage
 COPY --from=build /usr/local/lib/php/extensions/ /usr/local/lib/php/extensions/
