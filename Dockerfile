@@ -6,7 +6,7 @@ FROM php:8.3-fpm-alpine3.20 AS build
 ARG PIXELFED_VERSION="dev"
 
 # Renovate: datasource=repology depName=alpine_3_20/nginx versioning=loose
-ARG NGINX_VERSION=1.26.2-r0
+ARG NGINX_VERSION=1.26
 
 # Install build dependencies
 RUN apk add --no-cache \
@@ -72,7 +72,7 @@ COPY --from=build /usr/local/etc/php/conf.d/ /usr/local/etc/php/conf.d/
 COPY --from=build /usr/bin/composer /usr/bin/composer
 
 # Install runtime dependencies
-RUN apk add --no-cache \
+RUN apk update && apk add --no-cache \
     icu-libs \
     imagemagick \
     libjpeg-turbo \
