@@ -6,9 +6,7 @@ FROM php:8.3-fpm-alpine3.20 AS build
 ARG PIXELFED_VERSION="dev"
 
 # Renovate: datasource=repology depName=alpine_3_20/nginx versioning=loose
-ARG NGINX_VERSION=1.27.0
-
-RUN apk update && apk list -a nginx
+ARG NGINX_VERSION=1.26.2-r0
 
 # Install build dependencies
 RUN apk add --no-cache \
