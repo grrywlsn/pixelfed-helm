@@ -1,10 +1,12 @@
 # Stage 1: Build stage
-FROM php:8.3-fpm-alpine AS build
+FROM php:8.3-fpm-alpine3.20 AS build
 
 # renovate: datasource=github-releases depName=pixelfed/pixelfed
 # ARG PIXELFED_VERSION="v0.12.4"
 ARG PIXELFED_VERSION="dev"
-ENV PIXELFED_VERSION=${PIXELFED_VERSION}
+
+# Renovate: datasource=repology depName=alpine_3_20/nginx versioning=loose
+ARG NGINX_VERSION=1.27.0
 
 # Install build dependencies
 RUN apk add --no-cache \
@@ -79,7 +81,7 @@ RUN apk add --no-cache \
     libxpm \
     libzip \
     netcat-openbsd \
-    nginx \
+    nginx=${NGINX_VERSION} \
     oniguruma \
     postgresql-libs \
     sed \

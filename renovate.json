@@ -2,5 +2,52 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended"
+  ],
+  "additionalBranchPrefix": "{{baseDir}}-",
+  "packageRules": [
+      {
+          "matchManagers": ["dockerfile", "regex"],
+          "enabled": true,
+          "groupName": "{{baseDir}}-dockerfile",
+          "groupSlug": "dockerfile"
+      },
+      {
+        "matchUpdateTypes": [
+          "patch",
+          "pin",
+          "digest"
+        ],
+        "addLabels": ["patch"]
+      },
+      {
+        "matchUpdateTypes": ["minor"],
+        "addLabels": ["minor"],
+        "automerge": true
+      },
+      {
+        "matchUpdateTypes": ["major"],
+        "addLabels": ["major"]
+      }
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": ["^Dockerfile$"],
+      "matchStrings": [
+        "# renovate: datasource=repology depName=alpine_(?<currentValue>\\d+[._]\\d+)"
+      ],
+      "currentValueTemplate": "{{{ replace '_' '.' currentValue }}}",
+      "datasourceTemplate": "docker",
+      "depNameTemplate": "alpine",
+      "versioningTemplate": "regex:^(?<major>\\d+)[._](?<minor>\\d+)$",
+      "autoReplaceStringTemplate": "# renovate: datasource=repology depName=alpine_{{{newMajor}}}_{{{newMinor}}}"
+    },
+    {
+      "customType": "regex",
+      "fileMatch": ["^Dockerfile$"],
+      "matchStrings": [
+        "datasource=(?<datasource>repology) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\sENV .*?_VERSION=(?<currentValue>.*)\\s"
+      ]
+    }
   ]
 }
