@@ -1,6 +1,6 @@
 image:
   repo: "ghcr.io/grrywlsn/pixelfed-helm"
-  tag: "v1.1.1"
+  tag: "v1.1.2"
 createSecret: false
 config:
   # Domain and session config
