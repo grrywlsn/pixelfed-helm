@@ -35,7 +35,6 @@ RUN docker-php-ext-configure gd --with-jpeg --with-webp && \
     intl \
     pdo_pgsql \
     pgsql \
-    vips \
     zip
 
 # Install Redis PHP extension
