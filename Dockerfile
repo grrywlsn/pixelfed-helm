@@ -8,7 +8,7 @@ ARG PIXELFED_VERSION="dev"
 # Renovate: datasource=repology depName=alpine_3_20/nginx versioning=loose
 ARG NGINX_VERSION=1.27.0
 
-RUN apk list -a nginx
+RUN apk update && apk list -a nginx
 
 # Install build dependencies
 RUN apk add --no-cache \
