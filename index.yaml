@@ -3,6 +3,15 @@ entries:
   pixelfed:
   - apiVersion: v2
     appVersion: 0.12.4
+    created: "2025-02-08T22:01:22.782339616Z"
+    description: Helm chart to deploy Pixelfed
+    digest: 3d7c07abf26d98edc7831ca3d2926629b309eb45c01880ff931685bea920ba4a
+    name: pixelfed
+    urls:
+    - https://github.com/grrywlsn/pixelfed-helm/releases/download/pixelfed-v1.1.2/pixelfed-v1.1.2.tgz
+    version: v1.1.2
+  - apiVersion: v2
+    appVersion: 0.12.4
     created: "2025-02-07T00:45:23.090523732Z"
     description: Helm chart to deploy Pixelfed
     digest: 8dc11b20f5034a7216e775a0781a2c0404abae92c19b46ec74b28d49ea1831eb
@@ -42,4 +51,4 @@ entries:
     urls:
     - https://github.com/grrywlsn/pixelfed-helm/releases/download/pixelfed-v1.0.0/pixelfed-v1.0.0.tgz
     version: v1.0.0
-generated: "2025-02-07T00:45:23.090546525Z"
+generated: "2025-02-08T22:01:22.782364973Z"
