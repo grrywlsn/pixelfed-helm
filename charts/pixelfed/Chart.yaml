@@ -2,4 +2,4 @@ apiVersion: v2
 name: pixelfed
 version: v1.3.0
 description: Helm chart to deploy Pixelfed
-appVersion: 0.12.4
+appVersion: 0.12.5
