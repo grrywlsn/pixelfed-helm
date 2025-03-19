@@ -55,6 +55,7 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/html
 
 # Clone Pixelfed repository
+RUN git config --global --add safe.directory /var/www/html
 RUN git clone https://github.com/pixelfed/pixelfed.git . \
     && git checkout ${PIXELFED_VERSION}
 
