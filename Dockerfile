@@ -55,7 +55,7 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/html
 
 # Clone Pixelfed repository
-RUN git clone --branch ${PIXELFED_VERSION} --depth=1 https://github.com/pixelfed/pixelfed.git .
+RUN git clone https://github.com/pixelfed/pixelfed.git . && git checkout ${PIXELFED_VERSION}
 
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader  --ignore-platform-reqs
