@@ -6,3 +6,5 @@ repos:
         entry: helm-docs --chart-search-root charts/pixelfed
         language: system
         pass_filenames: false
+        always_run: true
+        stages: [commit]
