@@ -1,3 +1,6 @@
+#
+# Used to test the chart template rendering
+#
 config:
   APP_NAME: example.com photos sharing
   APP_URL: https://example.com

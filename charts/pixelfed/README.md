@@ -8,9 +8,9 @@ Helm chart to deploy Pixelfed
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| config.APP_NAME | string | `""` | The name for your Pixelfed server (how it appears in the UI) |
-| config.APP_URL | string | `""` | The URL of your Pixelfed server (e.g. pixelfed.example.com) - Do not include https:// |
-| config.INSTANCE_CONTACT_EMAIL | string | `""` | The email address for your Pixelfed admin/support address |
+| config.APP_NAME | string | `""` | The name for your Pixelfed server (how it appears in the UI) (REQUIRED) |
+| config.APP_URL | string | `""` | The URL of your Pixelfed server (e.g. pixelfed.example.com) - Do not include https:// (REQUIRED) |
+| config.INSTANCE_CONTACT_EMAIL | string | `""` | The email address for your Pixelfed admin/support address (REQUIRED) |
 | config.aws.AWS_BUCKET | string | `""` |  |
 | config.aws.AWS_DEFAULT_REGION | string | `""` |  |
 | config.aws.AWS_ENDPOINT | string | `""` |  |
@@ -22,7 +22,7 @@ Helm chart to deploy Pixelfed
 | config.database.DB_HOST | string | `"localhost"` |  |
 | config.database.DB_PORT | string | `"5432"` |  |
 | config.domain.ADMIN_DOMAIN | string | `""` | The URL for the domain access; defaults to APP_DOMAIN |
-| config.domain.APP_DOMAIN | string | `""` | The URL at which your Pixelfed server is accessible (e.g. https://pixelfed.example.com) - Must include https:// |
+| config.domain.APP_DOMAIN | string | `""` | The URL at which your Pixelfed server is accessible (e.g. https://pixelfed.example.com) - Must include https:// (REQUIRED) |
 | config.domain.SESSION_DOMAIN | string | `""` | The URL for the domain session; defaults to APP_DOMAIN |
 | config.federation.ACTIVITY_PUB | string | `"true"` |  |
 | config.federation.AP_INBOX | string | `"true"` |  |
@@ -83,44 +83,45 @@ Helm chart to deploy Pixelfed
 | config.runtime.ENABLE_CONFIG_CACHE | string | `"true"` | Tells Laravel and the Pixelfed server to cache config (this is recommended for production) |
 | config.runtime.LOG_CHANNEL | string | `"stack"` | How the server should log messages |
 | config.runtime.LOG_LEVEL | string | `"debug"` | The default level of logging to use |
-| config.server.ACCOUNT_DELETE_AFTER | string | `"false"` |  |
-| config.server.ACCOUNT_DELETION | string | `"true"` |  |
-| config.server.BANNED_USERNAMES | string | `""` |  |
-| config.server.ENFORCE_EMAIL_VERIFICATION | string | `"true"` |  |
-| config.server.INSTANCE_CONTACT_FORM | string | `"true"` |  |
-| config.server.INSTANCE_DESCRIPTION | string | `"Decentralized photo sharing social media powered by Pixelfed"` |  |
-| config.server.INSTANCE_DISCOVER_PUBLIC | string | `"true"` |  |
-| config.server.INSTANCE_LANDING_SHOW_DIRECTORY | string | `"true"` |  |
-| config.server.INSTANCE_LANDING_SHOW_EXPLORE | string | `"true"` |  |
-| config.server.INSTANCE_POST_EMBEDS | string | `"true"` |  |
-| config.server.INSTANCE_PROFILE_EMBEDS | string | `"true"` |  |
-| config.server.INSTANCE_PUBLIC_HASHTAGS | string | `"true"` |  |
-| config.server.INSTANCE_SHOW_PEERS | string | `"true"` |  |
-| config.server.LIMIT_ACCOUNT_SIZE | string | `"true"` |  |
-| config.server.MAX_ACCOUNT_SIZE | string | `"2000000"` |  |
-| config.server.MAX_ALBUM_LENGTH | string | `"10"` |  |
-| config.server.MAX_AVATAR_SIZE | string | `"2000"` |  |
-| config.server.MAX_BIO_LENGTH | string | `"300"` |  |
-| config.server.MAX_CAPTION_LENGTH | string | `"500"` |  |
-| config.server.MAX_LINKS_PER_POST | string | `"1"` |  |
-| config.server.MAX_NAME_LENGTH | string | `"30"` |  |
-| config.server.MAX_PHOTO_SIZE | string | `"15000"` |  |
-| config.server.MIN_PASSWORD_LENGTH | string | `"8"` |  |
-| config.server.OAUTH_ENABLED | string | `"true"` |  |
-| config.server.OPEN_REGISTRATION | string | `"true"` |  |
-| config.server.PF_ADMIN_INVITES_ENABLED | string | `"true"` |  |
-| config.server.PF_COSTAR_ENABLED | string | `"false"` |  |
-| config.server.PF_ENFORCE_MAX_USERS | string | `"true"` |  |
-| config.server.PF_HIDE_NSFW_ON_PUBLIC_FEEDS | string | `"true"` |  |
-| config.server.PF_MAX_COLLECTION_LENGTH | string | `"100"` |  |
-| config.server.PF_MAX_DOMAIN_BLOCKS | string | `"50"` |  |
-| config.server.PF_MAX_USERS | string | `"2000"` |  |
-| config.server.PF_MAX_USER_BLOCKS | string | `"50"` |  |
-| config.server.PF_MAX_USER_MUTES | string | `"50"` |  |
-| config.server.RESTRICTED_INSTANCE | string | `"false"` |  |
-| config.server.RESTRICT_HTML_TYPES | string | `"true"` |  |
-| config.server.STORIES_ENABLED | string | `"true"` |  |
-| config.server.instagram.PF_IMPORT_FROM_INSTAGRAM | string | `"true"` |  |
+| config.server.ACCOUNT_DELETE_AFTER | string | `"false"` | Set to either a number of days after which to purge a deleted account, or "false" to delete immediately |
+| config.server.ACCOUNT_DELETION | string | `"true"` | Enable account deletion (may be a requirement in some jurisdictions) |
+| config.server.BANNED_USERNAMES | string | `""` | Usernames to ban from registering |
+| config.server.ENFORCE_EMAIL_VERIFICATION | string | `"true"` | Enforces email verification for new accounts, before the account is activated |
+| config.server.INSTANCE_CONTACT_FORM | string | `"true"` | If the contact form should be shown on the instance landing page |
+| config.server.INSTANCE_CUR_REG | string | `"false"` | Enable Curated Registration |
+| config.server.INSTANCE_DESCRIPTION | string | `"Decentralized photo sharing social media powered by Pixelfed"` | A description of your Pixelfed server |
+| config.server.INSTANCE_DISCOVER_PUBLIC | string | `"true"` | Enables public access to the Discover feature |
+| config.server.INSTANCE_LANDING_SHOW_DIRECTORY | string | `"true"` | Enable the profile directory on the landing page |
+| config.server.INSTANCE_LANDING_SHOW_EXPLORE | string | `"true"` | Enable the popular post explore on the landing page |
+| config.server.INSTANCE_POST_EMBEDS | string | `"true"` | Enable the post embed feature |
+| config.server.INSTANCE_PROFILE_EMBEDS | string | `"true"` | Enable the profile embed feature |
+| config.server.INSTANCE_PUBLIC_HASHTAGS | string | `"true"` | Allow anonymous access to hashtag feeds |
+| config.server.INSTANCE_SHOW_PEERS | string | `"true"` | Enable the api/v1/peers API endpoint |
+| config.server.LIMIT_ACCOUNT_SIZE | string | `"true"` | Whether to enforce the account size limits |
+| config.server.MAX_ACCOUNT_SIZE | string | `"2000000"` | The max allowed account size in KB |
+| config.server.MAX_ALBUM_LENGTH | string | `"10"` | The max number of media per post album |
+| config.server.MAX_AVATAR_SIZE | string | `"2000"` | The max user avatar size in KB |
+| config.server.MAX_BIO_LENGTH | string | `"300"` | The max user bio length |
+| config.server.MAX_CAPTION_LENGTH | string | `"500"` | The max post caption length |
+| config.server.MAX_LINKS_PER_POST | string | `"1"` | Maximum number of URLs per post that will be rendered as a link |
+| config.server.MAX_NAME_LENGTH | string | `"30"` | The max user display name length |
+| config.server.MAX_PHOTO_SIZE | string | `"15000"` | The max photo/video size in KB	 |
+| config.server.MIN_PASSWORD_LENGTH | string | `"8"` | The min password length |
+| config.server.OAUTH_ENABLED | string | `"true"` | Enable oAuth support, required for mobile/3rd party apps |
+| config.server.OPEN_REGISTRATION | string | `"true"` | If your server is open for public signups |
+| config.server.PF_ADMIN_INVITES_ENABLED | string | `"true"` | Enable the Admin Invites feature |
+| config.server.PF_COSTAR_ENABLED | string | `"false"` | Enable the Costar feature |
+| config.server.PF_ENFORCE_MAX_USERS | string | `"true"` | Whether to enforce the max user limit |
+| config.server.PF_HIDE_NSFW_ON_PUBLIC_FEEDS | string | `"true"` | Hide sensitive posts from public/network feeds |
+| config.server.PF_MAX_COLLECTION_LENGTH | string | `"100"` | Max collection post limit |
+| config.server.PF_MAX_DOMAIN_BLOCKS | string | `"50"` | The max number of domain blocks per account |
+| config.server.PF_MAX_USERS | string | `"2000"` | Limit max user registrations |
+| config.server.PF_MAX_USER_BLOCKS | string | `"50"` | The max number of user blocks per account |
+| config.server.PF_MAX_USER_MUTES | string | `"50"` | The max number of user mutes per account |
+| config.server.RESTRICTED_INSTANCE | string | `"false"` | If your server is open for public signups but requires email verification |
+| config.server.RESTRICT_HTML_TYPES | string | `"true"` | Prevent risky HTML types from being parsed in comments and other user |
+| config.server.STORIES_ENABLED | string | `"true"` | Enable the Stories feature |
+| config.server.instagram.PF_IMPORT_FROM_INSTAGRAM | string | `"true"` | Whether to enable the Instagram import feature |
 | config.server.instagram.PF_IMPORT_IG_ALLOW_VIDEO_POSTS | string | `"true"` |  |
 | config.server.instagram.PF_IMPORT_IG_MAX_ATTEMPTS | string | `"-1"` |  |
 | config.server.instagram.PF_IMPORT_IG_MAX_POSTS | string | `"100"` |  |
@@ -138,7 +139,7 @@ Helm chart to deploy Pixelfed
 | existingSecret | string | `""` | The name of a secret to use instead of generating it from input values |
 | image.repo | string | `"ghcr.io/grrywlsn/pixelfed-helm"` | repo to pull the Pixelfed image from |
 | image.tag | string | `"v2.0.0"` | version of the image to pull |
-| secret.APP_KEY | string | `""` |  |
+| secret.APP_KEY | string | `""` | The secret key used to encrypt user sessions and other sensitive data (REQUIRED) |
 | secret.PIXELFED_PUSHGATEWAY_KEY | string | `""` |  |
 | secret.aws.AWS_ACCESS_KEY_ID | string | `""` |  |
 | secret.aws.AWS_SECRET_ACCESS_KEY | string | `""` |  |
