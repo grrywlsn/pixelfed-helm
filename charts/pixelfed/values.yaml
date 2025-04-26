@@ -6,14 +6,14 @@ image:
 # -- The name of a secret to use instead of generating it from input values
 existingSecret: ""
 config:
-  # -- The name for your Pixelfed server (how it appears in the UI)
+  # -- The name for your Pixelfed server (how it appears in the UI) (REQUIRED)
   APP_NAME: ""
-  # -- The URL of your Pixelfed server (e.g. pixelfed.example.com) - Do not include https://
+  # -- The URL of your Pixelfed server (e.g. pixelfed.example.com) - Do not include https:// (REQUIRED)
   APP_URL: ""
-  # -- The email address for your Pixelfed admin/support address
+  # -- The email address for your Pixelfed admin/support address (REQUIRED)
   INSTANCE_CONTACT_EMAIL: ""
   domain:
-    # -- The URL at which your Pixelfed server is accessible (e.g. https://pixelfed.example.com) - Must include https://
+    # -- The URL at which your Pixelfed server is accessible (e.g. https://pixelfed.example.com) - Must include https:// (REQUIRED)
     APP_DOMAIN: ""
     # -- The URL for the domain access; defaults to APP_DOMAIN
     ADMIN_DOMAIN: ""
@@ -47,44 +47,84 @@ config:
     # -- Whether to use the env editor in the admin panel
     ADMIN_ENV_EDITOR: "false"
   server:
+    # -- A description of your Pixelfed server
     INSTANCE_DESCRIPTION: "Decentralized photo sharing social media powered by Pixelfed"
+    # -- If the contact form should be shown on the instance landing page
     INSTANCE_CONTACT_FORM: "true"
+    # -- If your server is open for public signups
     OPEN_REGISTRATION: "true"
+    # -- If your server is open for public signups but requires email verification
     RESTRICTED_INSTANCE: "false"
+    # -- Enforces email verification for new accounts, before the account is activated
     ENFORCE_EMAIL_VERIFICATION: "true"
+    # -- Enable oAuth support, required for mobile/3rd party apps
     OAUTH_ENABLED: "true"
+    # -- Enable Curated Registration
+    INSTANCE_CUR_REG: "false"
+    # -- Enables public access to the Discover feature
     INSTANCE_DISCOVER_PUBLIC: "true"
+    # -- Allow anonymous access to hashtag feeds
     INSTANCE_PUBLIC_HASHTAGS: "true"
+    # -- Enable the Stories feature
     STORIES_ENABLED: "true"
+    # -- Enable the profile embed feature
     INSTANCE_PROFILE_EMBEDS: "true"
+    # -- Enable the post embed feature
     INSTANCE_POST_EMBEDS: "true"
+    # -- Hide sensitive posts from public/network feeds
     PF_HIDE_NSFW_ON_PUBLIC_FEEDS: "true"
+    # -- Enable the Admin Invites feature
     PF_ADMIN_INVITES_ENABLED: "true"
+    # -- Enable the profile directory on the landing page
     INSTANCE_LANDING_SHOW_DIRECTORY: "true"
+    # -- Enable the popular post explore on the landing page
     INSTANCE_LANDING_SHOW_EXPLORE: "true"
+    # -- Enable the api/v1/peers API endpoint
     INSTANCE_SHOW_PEERS: "true"
+    # -- Enable account deletion (may be a requirement in some jurisdictions)
     ACCOUNT_DELETION: "true"
+    # -- Set to either a number of days after which to purge a deleted account, or "false" to delete immediately
     ACCOUNT_DELETE_AFTER: "false"
+    # -- Enable the Costar feature
     PF_COSTAR_ENABLED: "false"
+    # -- The max allowed account size in KB
     MAX_ACCOUNT_SIZE: "2000000"
+    # -- The max photo/video size in KB	
     MAX_PHOTO_SIZE: "15000"
+    # -- The max user avatar size in KB
     MAX_AVATAR_SIZE: "2000"
+    # -- The max post caption length
     MAX_CAPTION_LENGTH: "500"
+    # -- The max user bio length
     MAX_BIO_LENGTH: "300"
+    # -- The max user display name length
     MAX_NAME_LENGTH: "30"
+    # -- The min password length
     MIN_PASSWORD_LENGTH: "8"
+    # -- The max number of media per post album
     MAX_ALBUM_LENGTH: "10"
+    # -- The max number of user blocks per account
     PF_MAX_USER_BLOCKS: "50"
+    # -- The max number of user mutes per account
     PF_MAX_USER_MUTES: "50"
+    # -- The max number of domain blocks per account
     PF_MAX_DOMAIN_BLOCKS: "50"
+    # -- Max collection post limit
     PF_MAX_COLLECTION_LENGTH: "100"
+    # -- Whether to enforce the account size limits
     LIMIT_ACCOUNT_SIZE: "true"
+    # -- Usernames to ban from registering
     BANNED_USERNAMES: ""
+    # -- Prevent risky HTML types from being parsed in comments and other user
     RESTRICT_HTML_TYPES: "true"
+    # -- Maximum number of URLs per post that will be rendered as a link
     MAX_LINKS_PER_POST: "1"
+    # -- Limit max user registrations
     PF_MAX_USERS: "2000"
+    # -- Whether to enforce the max user limit
     PF_ENFORCE_MAX_USERS: "true"
     instagram:
+      # -- Whether to enable the Instagram import feature
       PF_IMPORT_FROM_INSTAGRAM: "true"
       PF_IMPORT_IG_MAX_POSTS: "100"
       PF_IMPORT_IG_MAX_ATTEMPTS: "-1"
@@ -167,13 +207,16 @@ config:
     PHP_OPCACHE_VALIDATE_TIMESTAMPS: "0"
     PHP_OPCACHE_REVALIDATE_FREQ: "2"
 secret:
+  # -- The secret key used to encrypt user sessions and other sensitive data (REQUIRED)
   APP_KEY: ""
   PIXELFED_PUSHGATEWAY_KEY: ""
   aws:
     AWS_ACCESS_KEY_ID: ""
     AWS_SECRET_ACCESS_KEY: ""
   database:
+    # (REQUIRED)
     DB_PASSWORD: ""
+    # (REQUIRED)
     DB_USERNAME: ""
   mail:
     MAIL_USERNAME: ""

@@ -56,6 +56,7 @@ data:
   IMAGE_DRIVER: {{ .Values.config.media.IMAGE_DRIVER | quote }}
   IMAGE_QUALITY: {{ .Values.config.media.IMAGE_QUALITY | quote }}
   INSTANCE_CONTACT_EMAIL: {{ required "config.INSTANCE_CONTACT_EMAIL is required but missing" .Values.config.INSTANCE_CONTACT_EMAIL | quote }}
+  INSTANCE_CUR_REG: {{ .Values.config.server.INSTANCE_CUR_REG | quote }}
   INSTANCE_CONTACT_FORM: {{ .Values.config.server.INSTANCE_CONTACT_FORM | quote }}
   INSTANCE_DESCRIPTION: {{ .Values.config.server.INSTANCE_DESCRIPTION | quote }}
   INSTANCE_DISCOVER_PUBLIC: {{ .Values.config.server.INSTANCE_DISCOVER_PUBLIC | quote }}
