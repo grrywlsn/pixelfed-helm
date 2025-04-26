@@ -126,38 +126,67 @@ config:
     instagram:
       # -- Whether to enable the Instagram import feature
       PF_IMPORT_FROM_INSTAGRAM: "true"
+      # -- Maximum number of posts to import from Instagram
       PF_IMPORT_IG_MAX_POSTS: "100"
+      # -- Maximum number of attempts to import from Instagram
       PF_IMPORT_IG_MAX_ATTEMPTS: "-1"
+      # -- Whether to allow importing of videos from Instagram
       PF_IMPORT_IG_ALLOW_VIDEO_POSTS: "true"
+      # -- Limit import to admin accounts only
       PF_IMPORT_IG_PERM_ADMIN_ONLY: "false"
+      # -- Limit import to admin accounts and local accounts they follow only
       PF_IMPORT_IG_PERM_ADMIN_FOLLOWS_ONLY: "false"
+      # -- Limit to accounts older than X in days, or 0 for no limit
       PF_IMPORT_IG_PERM_MIN_ACCOUNT_AGE: "0"
+      # -- Limit to accounts with a min follower count of X, or 0 for no limit
       PF_IMPORT_IG_PERM_MIN_FOLLOWER_COUNT: "0"
   federation:
+    # -- Whether to enable the ActivityPub federation feature
     ACTIVITY_PUB: "true"
+    # -- Whether to enable the ActivityPub remote follow feature
     AP_REMOTE_FOLLOW: "true"
+    # -- Whether to enable a shared inbox for remote follow requests
     AP_SHAREDINBOX: "true"
+    # -- Whether to enable the ActivityPub inbox feature
     AP_INBOX: "true"
+    # -- Whether to enable the ActivityPub outbox feature
     AP_OUTBOX: "true"
+    # -- Enforce Mastoapi Compatibility (alpha)
     EXP_EMC: "true"
+    # -- Whether to enable the ActivityPub atom feeds
     ATOM_FEEDS: "true"
+    # -- Whether to enable the ActivityPub nodeinfo feature
     NODEINFO: "true"
+    # -- Whether to enable the ActivityPub webfinger feature
     WEBFINGER: "true"
   database:
+    # -- The database driver to use (e.g. mysql, pgsql) (REQUIRED)
     DB_CONNECTION: "pgsql"
+    # -- The database name to use (REQUIRED)
     DB_DATABASE: "postgres"
+    # -- The database host to connect to (e.g. localhost) (REQUIRED)
     DB_HOST: "localhost"
+    # -- The database port to connect to (e.g. 3306, 5432) (REQUIRED)
     DB_PORT: "5432"
   redis:
+    # -- Driver to use to broadcast events (e.g. redis, log, null)
     BROADCAST_DRIVER: "redis"
+    # -- Driver to use to cache data (e.g. redis, file, database)
     CACHE_DRIVER: "redis"
+    # -- Driver to use to store queues (e.g. redis, sqs, database)
     QUEUE_DRIVER: "redis"
+    # -- Client to use for Redis (e.g. predis, phpredis)
     REDIS_CLIENT: "predis"
+    # -- The Redis host to connect to (e.g. localhost)
     REDIS_HOST: "localhost"
+    # -- The Redis port to connect to (e.g. 6379)
     REDIS_PORT: "6379"
+    # -- The Redis prefix to use for keys
     REDIS_PREFIX: ""
+    # -- The Redis scheme to use (e.g. tcp, unix)
     REDIS_SCHEME: "tcp"
   mail:
+    # -- The mail driver to use (e.g. smtp, sendmail, mailgun)
     MAIL_DRIVER: "smtp"
     MAIL_ENCRYPTION: ""
     MAIL_FROM_ADDRESS: ""
@@ -192,7 +221,7 @@ config:
     HORIZON_MIN_PROCESSES: "1"
     HORIZON_MAX_PROCESSES: "20"
     HORIZON_SUPERVISOR_MEMORY: "64"
-    HORIZON_SUPERVISOR_TRIES: "3"
+    HORIZON_SUPERVISOR_TRIES: "10"
     HORIZON_SUPERVISOR_NICE: "0"
     HORIZON_SUPERVISOR_TIMEOUT: "300"
   php:
@@ -209,18 +238,25 @@ config:
 secret:
   # -- The secret key used to encrypt user sessions and other sensitive data (REQUIRED)
   APP_KEY: ""
+  # -- The secret key used to authenticate the Pixelfed Pushgateway, for app notifications
   PIXELFED_PUSHGATEWAY_KEY: ""
   aws:
+    # -- The AWS access key ID to use for S3 storage
     AWS_ACCESS_KEY_ID: ""
+    # -- The AWS secret access key to use for S3 storage
     AWS_SECRET_ACCESS_KEY: ""
   database:
-    # (REQUIRED)
+    # -- The database password to use (REQUIRED)
     DB_PASSWORD: ""
-    # (REQUIRED)
+    # -- The database username to use (REQUIRED)
     DB_USERNAME: ""
   mail:
+    # -- The mail username to use for SMTP
     MAIL_USERNAME: ""
+    # -- The mail password to use for SMTP
     MAIL_PASSWORD: ""
   redis:
+    # -- The Redis password to use
     REDIS_PASSWORD: ""
+    # -- The Redis username to use
     REDIS_USERNAME: ""

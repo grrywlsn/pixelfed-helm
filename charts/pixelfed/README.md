@@ -17,22 +17,22 @@ Helm chart to deploy Pixelfed
 | config.aws.AWS_URL | string | `""` |  |
 | config.aws.AWS_USE_PATH_STYLE_ENDPOINT | string | `""` |  |
 | config.aws.AWS_VISIBILITY | string | `"public"` |  |
-| config.database.DB_CONNECTION | string | `"pgsql"` |  |
-| config.database.DB_DATABASE | string | `"postgres"` |  |
-| config.database.DB_HOST | string | `"localhost"` |  |
-| config.database.DB_PORT | string | `"5432"` |  |
+| config.database.DB_CONNECTION | string | `"pgsql"` | The database driver to use (e.g. mysql, pgsql) (REQUIRED) |
+| config.database.DB_DATABASE | string | `"postgres"` | The database name to use (REQUIRED) |
+| config.database.DB_HOST | string | `"localhost"` | The database host to connect to (e.g. localhost) (REQUIRED) |
+| config.database.DB_PORT | string | `"5432"` | The database port to connect to (e.g. 3306, 5432) (REQUIRED) |
 | config.domain.ADMIN_DOMAIN | string | `""` | The URL for the domain access; defaults to APP_DOMAIN |
 | config.domain.APP_DOMAIN | string | `""` | The URL at which your Pixelfed server is accessible (e.g. https://pixelfed.example.com) - Must include https:// (REQUIRED) |
 | config.domain.SESSION_DOMAIN | string | `""` | The URL for the domain session; defaults to APP_DOMAIN |
-| config.federation.ACTIVITY_PUB | string | `"true"` |  |
-| config.federation.AP_INBOX | string | `"true"` |  |
-| config.federation.AP_OUTBOX | string | `"true"` |  |
-| config.federation.AP_REMOTE_FOLLOW | string | `"true"` |  |
-| config.federation.AP_SHAREDINBOX | string | `"true"` |  |
-| config.federation.ATOM_FEEDS | string | `"true"` |  |
-| config.federation.EXP_EMC | string | `"true"` |  |
-| config.federation.NODEINFO | string | `"true"` |  |
-| config.federation.WEBFINGER | string | `"true"` |  |
+| config.federation.ACTIVITY_PUB | string | `"true"` | Whether to enable the ActivityPub federation feature |
+| config.federation.AP_INBOX | string | `"true"` | Whether to enable the ActivityPub inbox feature |
+| config.federation.AP_OUTBOX | string | `"true"` | Whether to enable the ActivityPub outbox feature |
+| config.federation.AP_REMOTE_FOLLOW | string | `"true"` | Whether to enable the ActivityPub remote follow feature |
+| config.federation.AP_SHAREDINBOX | string | `"true"` | Whether to enable a shared inbox for remote follow requests |
+| config.federation.ATOM_FEEDS | string | `"true"` | Whether to enable the ActivityPub atom feeds |
+| config.federation.EXP_EMC | string | `"true"` | Enforce Mastoapi Compatibility (alpha) |
+| config.federation.NODEINFO | string | `"true"` | Whether to enable the ActivityPub nodeinfo feature |
+| config.federation.WEBFINGER | string | `"true"` | Whether to enable the ActivityPub webfinger feature |
 | config.horizon.HORIZON_BALANCE_STRATEGY | string | `"auto"` |  |
 | config.horizon.HORIZON_DARKMODE | string | `"false"` |  |
 | config.horizon.HORIZON_MAX_PROCESSES | string | `"20"` |  |
@@ -42,8 +42,8 @@ Helm chart to deploy Pixelfed
 | config.horizon.HORIZON_SUPERVISOR_MEMORY | string | `"64"` |  |
 | config.horizon.HORIZON_SUPERVISOR_NICE | string | `"0"` |  |
 | config.horizon.HORIZON_SUPERVISOR_TIMEOUT | string | `"300"` |  |
-| config.horizon.HORIZON_SUPERVISOR_TRIES | string | `"3"` |  |
-| config.mail.MAIL_DRIVER | string | `"smtp"` |  |
+| config.horizon.HORIZON_SUPERVISOR_TRIES | string | `"10"` |  |
+| config.mail.MAIL_DRIVER | string | `"smtp"` | The mail driver to use (e.g. smtp, sendmail, mailgun) |
 | config.mail.MAIL_ENCRYPTION | string | `""` |  |
 | config.mail.MAIL_FROM_ADDRESS | string | `""` |  |
 | config.mail.MAIL_FROM_NAME | string | `""` |  |
@@ -67,14 +67,14 @@ Helm chart to deploy Pixelfed
 | config.php.PHP_OPCACHE_VALIDATE_TIMESTAMPS | string | `"0"` |  |
 | config.php.PHP_POST_MAX_SIZE | string | `"100M"` |  |
 | config.php.PHP_UPLOAD_MAX_FILESIZE | string | `"100M"` |  |
-| config.redis.BROADCAST_DRIVER | string | `"redis"` |  |
-| config.redis.CACHE_DRIVER | string | `"redis"` |  |
-| config.redis.QUEUE_DRIVER | string | `"redis"` |  |
-| config.redis.REDIS_CLIENT | string | `"predis"` |  |
-| config.redis.REDIS_HOST | string | `"localhost"` |  |
-| config.redis.REDIS_PORT | string | `"6379"` |  |
-| config.redis.REDIS_PREFIX | string | `""` |  |
-| config.redis.REDIS_SCHEME | string | `"tcp"` |  |
+| config.redis.BROADCAST_DRIVER | string | `"redis"` | Driver to use to broadcast events (e.g. redis, log, null) |
+| config.redis.CACHE_DRIVER | string | `"redis"` | Driver to use to cache data (e.g. redis, file, database) |
+| config.redis.QUEUE_DRIVER | string | `"redis"` | Driver to use to store queues (e.g. redis, sqs, database) |
+| config.redis.REDIS_CLIENT | string | `"predis"` | Client to use for Redis (e.g. predis, phpredis) |
+| config.redis.REDIS_HOST | string | `"localhost"` | The Redis host to connect to (e.g. localhost) |
+| config.redis.REDIS_PORT | string | `"6379"` | The Redis port to connect to (e.g. 6379) |
+| config.redis.REDIS_PREFIX | string | `""` | The Redis prefix to use for keys |
+| config.redis.REDIS_SCHEME | string | `"tcp"` | The Redis scheme to use (e.g. tcp, unix) |
 | config.runtime.ADMIN_ENV_EDITOR | string | `"false"` | Whether to use the env editor in the admin panel |
 | config.runtime.APP_DEBUG | string | `"false"` | Tells Laravel and the Pixelfed server to enable debugging mode |
 | config.runtime.APP_ENV | string | `"production"` | Tells Laravel and the Pixelfed server to use the production environment |
@@ -122,13 +122,13 @@ Helm chart to deploy Pixelfed
 | config.server.RESTRICT_HTML_TYPES | string | `"true"` | Prevent risky HTML types from being parsed in comments and other user |
 | config.server.STORIES_ENABLED | string | `"true"` | Enable the Stories feature |
 | config.server.instagram.PF_IMPORT_FROM_INSTAGRAM | string | `"true"` | Whether to enable the Instagram import feature |
-| config.server.instagram.PF_IMPORT_IG_ALLOW_VIDEO_POSTS | string | `"true"` |  |
-| config.server.instagram.PF_IMPORT_IG_MAX_ATTEMPTS | string | `"-1"` |  |
-| config.server.instagram.PF_IMPORT_IG_MAX_POSTS | string | `"100"` |  |
-| config.server.instagram.PF_IMPORT_IG_PERM_ADMIN_FOLLOWS_ONLY | string | `"false"` |  |
-| config.server.instagram.PF_IMPORT_IG_PERM_ADMIN_ONLY | string | `"false"` |  |
-| config.server.instagram.PF_IMPORT_IG_PERM_MIN_ACCOUNT_AGE | string | `"0"` |  |
-| config.server.instagram.PF_IMPORT_IG_PERM_MIN_FOLLOWER_COUNT | string | `"0"` |  |
+| config.server.instagram.PF_IMPORT_IG_ALLOW_VIDEO_POSTS | string | `"true"` | Whether to allow importing of videos from Instagram |
+| config.server.instagram.PF_IMPORT_IG_MAX_ATTEMPTS | string | `"-1"` | Maximum number of attempts to import from Instagram |
+| config.server.instagram.PF_IMPORT_IG_MAX_POSTS | string | `"100"` | Maximum number of posts to import from Instagram |
+| config.server.instagram.PF_IMPORT_IG_PERM_ADMIN_FOLLOWS_ONLY | string | `"false"` | Limit import to admin accounts and local accounts they follow only |
+| config.server.instagram.PF_IMPORT_IG_PERM_ADMIN_ONLY | string | `"false"` | Limit import to admin accounts only |
+| config.server.instagram.PF_IMPORT_IG_PERM_MIN_ACCOUNT_AGE | string | `"0"` | Limit to accounts older than X in days, or 0 for no limit |
+| config.server.instagram.PF_IMPORT_IG_PERM_MIN_FOLLOWER_COUNT | string | `"0"` | Limit to accounts with a min follower count of X, or 0 for no limit |
 | config.session.SESSION_DRIVER | string | `"database"` | The session driver to use to store user sessions |
 | config.session.SESSION_LIFETIME | string | `"86400"` | The lifetime of the session in seconds, defaults to 86400 (24 hours) |
 | config.storage.FILESYSTEM_CLOUD | string | `"s3"` |  |
@@ -140,15 +140,15 @@ Helm chart to deploy Pixelfed
 | image.repo | string | `"ghcr.io/grrywlsn/pixelfed-helm"` | repo to pull the Pixelfed image from |
 | image.tag | string | `"v2.0.0"` | version of the image to pull |
 | secret.APP_KEY | string | `""` | The secret key used to encrypt user sessions and other sensitive data (REQUIRED) |
-| secret.PIXELFED_PUSHGATEWAY_KEY | string | `""` |  |
-| secret.aws.AWS_ACCESS_KEY_ID | string | `""` |  |
-| secret.aws.AWS_SECRET_ACCESS_KEY | string | `""` |  |
-| secret.database.DB_PASSWORD | string | `""` |  |
-| secret.database.DB_USERNAME | string | `""` |  |
-| secret.mail.MAIL_PASSWORD | string | `""` |  |
-| secret.mail.MAIL_USERNAME | string | `""` |  |
-| secret.redis.REDIS_PASSWORD | string | `""` |  |
-| secret.redis.REDIS_USERNAME | string | `""` |  |
+| secret.PIXELFED_PUSHGATEWAY_KEY | string | `""` | The secret key used to authenticate the Pixelfed Pushgateway, for app notifications |
+| secret.aws.AWS_ACCESS_KEY_ID | string | `""` | The AWS access key ID to use for S3 storage |
+| secret.aws.AWS_SECRET_ACCESS_KEY | string | `""` | The AWS secret access key to use for S3 storage |
+| secret.database.DB_PASSWORD | string | `""` | The database password to use (REQUIRED) |
+| secret.database.DB_USERNAME | string | `""` | The database username to use (REQUIRED) |
+| secret.mail.MAIL_PASSWORD | string | `""` | The mail password to use for SMTP |
+| secret.mail.MAIL_USERNAME | string | `""` | The mail username to use for SMTP |
+| secret.redis.REDIS_PASSWORD | string | `""` | The Redis password to use |
+| secret.redis.REDIS_USERNAME | string | `""` | The Redis username to use |
 
 ----------------------------------------------
 Autogenerated from chart metadata using [helm-docs v1.14.2](https://github.com/norwoodj/helm-docs/releases/v1.14.2)
