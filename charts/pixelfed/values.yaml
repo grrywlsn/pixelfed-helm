@@ -168,6 +168,7 @@ config:
     DB_HOST: "localhost"
     # -- The database port to connect to (e.g. 3306, 5432) (REQUIRED)
     DB_PORT: "5432"
+    # -- Enable database migrations on startup
     DB_APPLY_NEW_MIGRATIONS_AUTOMATICALLY: "true"
   redis:
     # -- Driver to use to broadcast events (e.g. redis, log, null)

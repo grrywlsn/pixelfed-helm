@@ -17,7 +17,7 @@ Helm chart to deploy Pixelfed
 | config.aws.AWS_URL | string | `""` |  |
 | config.aws.AWS_USE_PATH_STYLE_ENDPOINT | string | `""` |  |
 | config.aws.AWS_VISIBILITY | string | `"public"` |  |
-| config.database.DB_APPLY_NEW_MIGRATIONS_AUTOMATICALLY | string | `"true"` |  |
+| config.database.DB_APPLY_NEW_MIGRATIONS_AUTOMATICALLY | string | `"true"` | Enable database migrations on startup |
 | config.database.DB_CONNECTION | string | `"pgsql"` | The database driver to use (e.g. mysql, pgsql) (REQUIRED) |
 | config.database.DB_DATABASE | string | `"postgres"` | The database name to use (REQUIRED) |
 | config.database.DB_HOST | string | `"localhost"` | The database host to connect to (e.g. localhost) (REQUIRED) |
