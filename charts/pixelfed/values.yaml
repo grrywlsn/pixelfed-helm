@@ -1,5 +1,7 @@
 image:
+  # -- repo to pull the Pixelfed image from
   repo: "ghcr.io/grrywlsn/pixelfed-helm"
+  # -- version of the image to pull
   tag: "v1.7.1"
 createSecret: false
 config:
