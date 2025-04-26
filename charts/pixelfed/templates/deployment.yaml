@@ -29,7 +29,7 @@ spec:
             - configMapRef:
                 name: "{{ include "pixelfed.fullname" . }}"
             - secretRef:
-                name: "{{ include "pixelfed.fullname" . }}"
+                name: "{{ if .Values.existingSecret }}{{ .Values.existingSecret }}{{ else }}{{ include "pixelfed.fullname" . }}{{ end }}"
           ports:
             - containerPort: 8080
               name: http
@@ -63,7 +63,7 @@ spec:
             - configMapRef:
                 name: "{{ include "pixelfed.fullname" . }}"
             - secretRef:
-                name: "{{ include "pixelfed.fullname" . }}"
+                name: "{{ if .Values.existingSecret }}{{ .Values.existingSecret }}{{ else }}{{ include "pixelfed.fullname" . }}{{ end }}"
           image: {{ .Values.image.repo }}:{{ .Values.image.tag }}
           workingDir: /var/www/html
           command: ["php"]

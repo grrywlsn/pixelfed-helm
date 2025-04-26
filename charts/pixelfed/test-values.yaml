@@ -1,5 +1,32 @@
 config:
-  APP_DOMAIN: example.com
   APP_NAME: example.com photos sharing
   APP_URL: https://example.com
   INSTANCE_CONTACT_EMAIL: support@example.com
+  domain:
+    APP_DOMAIN: example.com
+  server:
+    BANNED_USERNAMES: "admin"
+  aws:
+    AWS_BUCKET: "aws-bucket"
+    AWS_DEFAULT_REGION: "aws-region-1"
+    AWS_ENDPOINT: "aws-endpoint"
+    AWS_URL: "aws-url"
+    AWS_USE_PATH_STYLE_ENDPOINT: "aws-path-style-endpoint"
+    AWS_VISIBILITY: "public"
+  redis:
+    REDIS_PREFIX: "redis-prefix"
+secret:
+  APP_KEY: "abc123"
+  PIXELFED_PUSHGATEWAY_KEY: "push-gateway-key"
+  database:
+    DB_PASSWORD: "db-password"
+    DB_USERNAME: "db-username"
+  aws:
+    AWS_ACCESS_KEY_ID: "access-key-id"
+    AWS_SECRET_ACCESS_KEY: "access-secret-key"
+  mail:
+    MAIL_PASSWORD: "mail-password"
+    MAIL_USERNAME: "mail-username"
+  redis:
+    REDIS_PASSWORD: "redis-password"
+    REDIS_USERNAME: "redis-username"
