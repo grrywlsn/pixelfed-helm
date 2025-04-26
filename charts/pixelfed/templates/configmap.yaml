@@ -37,6 +37,7 @@ data:
   DB_DATABASE: {{ required "config.database.DB_DATABASE is required but missing" .Values.config.database.DB_DATABASE | quote }}
   DB_HOST: {{ required "config.database.DB_HOST is required but missing" .Values.config.database.DB_HOST | quote }}
   DB_PORT: {{ required "config.database.DB_PORT is required but missing" .Values.config.database.DB_PORT | quote }}
+  DB_APPLY_NEW_MIGRATIONS_AUTOMATICALLY: {{ .Values.config.database.DB_APPLY_NEW_MIGRATIONS_AUTOMATICALLY | quote }}
   ENABLE_CONFIG_CACHE: {{ .Values.config.runtime.ENABLE_CONFIG_CACHE | quote }}
   ENFORCE_EMAIL_VERIFICATION: {{ .Values.config.server.ENFORCE_EMAIL_VERIFICATION | quote }}
   EXP_EMC: {{ .Values.config.federation.EXP_EMC | quote }}
