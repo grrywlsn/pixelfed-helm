@@ -70,6 +70,11 @@ data:
   LOG_CHANNEL: {{ .Values.config.runtime.LOG_CHANNEL | quote }}
   LOG_LEVEL: {{ .Values.config.runtime.LOG_LEVEL | quote }}
   MAIL_DRIVER: {{ .Values.config.mail.MAIL_DRIVER | quote }}
+  MAIL_ENCRYPTION: {{ .Values.config.mail.MAIL_ENCRYPTION | quote }}
+  MAIL_FROM_ADDRESS: {{ default .Values.config.INSTANCE_CONTACT_EMAIL .Values.config.mail.MAIL_FROM_ADDRESS | quote }}
+  MAIL_FROM_NAME: {{ default .Values.config.APP_NAME .Values.config.mail.MAIL_FROM_NAME | quote }}
+  MAIL_HOST: {{ .Values.config.mail.MAIL_HOST | quote }}
+  MAIL_PORT: {{ .Values.config.mail.MAIL_PORT | quote }}
   MAX_ACCOUNT_SIZE: {{ .Values.config.server.MAX_ACCOUNT_SIZE | quote }}
   MAX_ALBUM_LENGTH: {{ .Values.config.server.MAX_ALBUM_LENGTH | quote }}
   MAX_AVATAR_SIZE: {{ .Values.config.server.MAX_AVATAR_SIZE | quote }}
