@@ -1,6 +1,6 @@
 # pixelfed
 
-![Version: v1.7.1](https://img.shields.io/badge/Version-v1.7.1-informational?style=flat-square) ![AppVersion: 0.12.4](https://img.shields.io/badge/AppVersion-0.12.4-informational?style=flat-square)
+![Version: v2.0.0](https://img.shields.io/badge/Version-v2.0.0-informational?style=flat-square) ![AppVersion: 0.12.5](https://img.shields.io/badge/AppVersion-0.12.5-informational?style=flat-square)
 
 Helm chart to deploy Pixelfed
 
@@ -8,9 +8,22 @@ Helm chart to deploy Pixelfed
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| config.domain.ADMIN_DOMAIN | string | `""` |  |
-| config.domain.APP_DOMAIN | string | `""` |  |
-| config.domain.SESSION_DOMAIN | string | `""` |  |
+| config.APP_NAME | string | `""` | The name for your Pixelfed server (how it appears in the UI) |
+| config.APP_URL | string | `""` | The URL of your Pixelfed server (e.g. pixelfed.example.com) - Do not include https:// |
+| config.INSTANCE_CONTACT_EMAIL | string | `""` | The email address for your Pixelfed admin/support address |
+| config.aws.AWS_BUCKET | string | `""` |  |
+| config.aws.AWS_DEFAULT_REGION | string | `""` |  |
+| config.aws.AWS_ENDPOINT | string | `""` |  |
+| config.aws.AWS_URL | string | `""` |  |
+| config.aws.AWS_USE_PATH_STYLE_ENDPOINT | string | `""` |  |
+| config.aws.AWS_VISIBILITY | string | `"public"` |  |
+| config.database.DB_CONNECTION | string | `"pgsql"` |  |
+| config.database.DB_DATABASE | string | `"postgres"` |  |
+| config.database.DB_HOST | string | `"localhost"` |  |
+| config.database.DB_PORT | string | `"5432"` |  |
+| config.domain.ADMIN_DOMAIN | string | `""` | The URL for the domain access; defaults to APP_DOMAIN |
+| config.domain.APP_DOMAIN | string | `""` | The URL at which your Pixelfed server is accessible (e.g. https://pixelfed.example.com) - Must include https:// |
+| config.domain.SESSION_DOMAIN | string | `""` | The URL for the domain session; defaults to APP_DOMAIN |
 | config.federation.ACTIVITY_PUB | string | `"true"` |  |
 | config.federation.AP_INBOX | string | `"true"` |  |
 | config.federation.AP_OUTBOX | string | `"true"` |  |
@@ -30,13 +43,20 @@ Helm chart to deploy Pixelfed
 | config.horizon.HORIZON_SUPERVISOR_NICE | string | `"0"` |  |
 | config.horizon.HORIZON_SUPERVISOR_TIMEOUT | string | `"300"` |  |
 | config.horizon.HORIZON_SUPERVISOR_TRIES | string | `"3"` |  |
+| config.mail.MAIL_DRIVER | string | `"smtp"` |  |
+| config.mail.MAIL_ENCRYPTION | string | `""` |  |
+| config.mail.MAIL_FROM_ADDRESS | string | `""` |  |
+| config.mail.MAIL_FROM_NAME | string | `""` |  |
+| config.mail.MAIL_HOST | string | `""` |  |
+| config.mail.MAIL_PASSWORD | string | `""` |  |
+| config.mail.MAIL_PORT | string | `""` |  |
 | config.media.IMAGE_DRIVER | string | `"imagick"` |  |
 | config.media.IMAGE_QUALITY | string | `"95"` |  |
 | config.media.MEDIA_EXIF_DATABASE | string | `"true"` |  |
 | config.media.PF_OPTIMIZE_IMAGES | string | `"true"` |  |
 | config.media.PF_OPTIMIZE_VIDEOS | string | `"true"` |  |
-| config.network.FORCE_HTTPS_URLS | string | `"true"` |  |
-| config.network.TRUST_PROXIES | string | `"*"` |  |
+| config.network.FORCE_HTTPS_URLS | string | `"true"` | Redirects HTTP to HTTPS |
+| config.network.TRUST_PROXIES | string | `"*"` | Proxies to trust, defaults to "*" to allow nginx-ingress or similar Kubernetes proxy |
 | config.php.PHP_DATE_TIMEZONE | string | `"UTC"` |  |
 | config.php.PHP_DISPLAY_ERRORS | string | `"off"` |  |
 | config.php.PHP_ERROR_REPORTING | string | `"E_ALL & ~E_DEPRECATED & ~E_STRICT"` |  |
@@ -47,14 +67,22 @@ Helm chart to deploy Pixelfed
 | config.php.PHP_OPCACHE_VALIDATE_TIMESTAMPS | string | `"0"` |  |
 | config.php.PHP_POST_MAX_SIZE | string | `"100M"` |  |
 | config.php.PHP_UPLOAD_MAX_FILESIZE | string | `"100M"` |  |
-| config.runtime.ADMIN_ENV_EDITOR | string | `"false"` |  |
-| config.runtime.APP_DEBUG | string | `"false"` |  |
-| config.runtime.APP_ENV | string | `"production"` |  |
-| config.runtime.APP_LOCALE | string | `"en"` |  |
-| config.runtime.APP_TIMEZONE | string | `"UTC"` |  |
-| config.runtime.ENABLE_CONFIG_CACHE | string | `"true"` |  |
-| config.runtime.LOG_CHANNEL | string | `"stack"` |  |
-| config.runtime.LOG_LEVEL | string | `"debug"` |  |
+| config.redis.BROADCAST_DRIVER | string | `"redis"` |  |
+| config.redis.CACHE_DRIVER | string | `"redis"` |  |
+| config.redis.QUEUE_DRIVER | string | `"redis"` |  |
+| config.redis.REDIS_CLIENT | string | `"predis"` |  |
+| config.redis.REDIS_HOST | string | `"localhost"` |  |
+| config.redis.REDIS_PORT | string | `"6379"` |  |
+| config.redis.REDIS_PREFIX | string | `""` |  |
+| config.redis.REDIS_SCHEME | string | `"tcp"` |  |
+| config.runtime.ADMIN_ENV_EDITOR | string | `"false"` | Whether to use the env editor in the admin panel |
+| config.runtime.APP_DEBUG | string | `"false"` | Tells Laravel and the Pixelfed server to enable debugging mode |
+| config.runtime.APP_ENV | string | `"production"` | Tells Laravel and the Pixelfed server to use the production environment |
+| config.runtime.APP_LOCALE | string | `"en"` | Default locale to use for the server |
+| config.runtime.APP_TIMEZONE | string | `"UTC"` | Default timezone to use for the server |
+| config.runtime.ENABLE_CONFIG_CACHE | string | `"true"` | Tells Laravel and the Pixelfed server to cache config (this is recommended for production) |
+| config.runtime.LOG_CHANNEL | string | `"stack"` | How the server should log messages |
+| config.runtime.LOG_LEVEL | string | `"debug"` | The default level of logging to use |
 | config.server.ACCOUNT_DELETE_AFTER | string | `"false"` |  |
 | config.server.ACCOUNT_DELETION | string | `"true"` |  |
 | config.server.BANNED_USERNAMES | string | `""` |  |
@@ -100,16 +128,26 @@ Helm chart to deploy Pixelfed
 | config.server.instagram.PF_IMPORT_IG_PERM_ADMIN_ONLY | string | `"false"` |  |
 | config.server.instagram.PF_IMPORT_IG_PERM_MIN_ACCOUNT_AGE | string | `"0"` |  |
 | config.server.instagram.PF_IMPORT_IG_PERM_MIN_FOLLOWER_COUNT | string | `"0"` |  |
-| config.session.SESSION_DRIVER | string | `"database"` |  |
-| config.session.SESSION_LIFETIME | string | `"86400"` |  |
+| config.session.SESSION_DRIVER | string | `"database"` | The session driver to use to store user sessions |
+| config.session.SESSION_LIFETIME | string | `"86400"` | The lifetime of the session in seconds, defaults to 86400 (24 hours) |
 | config.storage.FILESYSTEM_CLOUD | string | `"s3"` |  |
 | config.storage.FILESYSTEM_DRIVER | string | `"local"` |  |
 | config.storage.MEDIA_DELETE_LOCAL_AFTER_CLOUD | string | `"true"` |  |
 | config.storage.PF_ENABLE_CLOUD | string | `"false"` |  |
 | config.storage.PF_LOCAL_AVATAR_TO_CLOUD | string | `"false"` |  |
-| createSecret | bool | `false` |  |
+| existingSecret | string | `""` | The name of a secret to use instead of generating it from input values |
 | image.repo | string | `"ghcr.io/grrywlsn/pixelfed-helm"` | repo to pull the Pixelfed image from |
-| image.tag | string | `"v1.7.1"` | version of the image to pull |
+| image.tag | string | `"v2.0.0"` | version of the image to pull |
+| secret.APP_KEY | string | `""` |  |
+| secret.PIXELFED_PUSHGATEWAY_KEY | string | `""` |  |
+| secret.aws.AWS_ACCESS_KEY_ID | string | `""` |  |
+| secret.aws.AWS_SECRET_ACCESS_KEY | string | `""` |  |
+| secret.database.DB_PASSWORD | string | `""` |  |
+| secret.database.DB_USERNAME | string | `""` |  |
+| secret.mail.MAIL_PASSWORD | string | `""` |  |
+| secret.mail.MAIL_USERNAME | string | `""` |  |
+| secret.redis.REDIS_PASSWORD | string | `""` |  |
+| secret.redis.REDIS_USERNAME | string | `""` |  |
 
 ----------------------------------------------
 Autogenerated from chart metadata using [helm-docs v1.14.2](https://github.com/norwoodj/helm-docs/releases/v1.14.2)

@@ -10,7 +10,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: {{ required "config.APP_DOMAIN is required but missing" .Values.config.APP_DOMAIN | quote }}
+    - host: {{ required "config.domain.APP_DOMAIN is required but missing" .Values.config.domain.APP_DOMAIN | quote }}
       http:
         paths:
           - backend:
@@ -22,5 +22,5 @@ spec:
             pathType: Prefix
   tls:
     - hosts:
-        - {{ required "config.APP_DOMAIN is required but missing" .Values.config.APP_DOMAIN | quote }}
+        - {{ required "config.domain.APP_DOMAIN is required but missing" .Values.config.domain.APP_DOMAIN | quote }}
       secretName: "{{ include "pixelfed.fullname" . }}-tls"
