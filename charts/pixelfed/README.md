@@ -1,6 +1,6 @@
 # pixelfed
 
-![Version: v2.0.0](https://img.shields.io/badge/Version-v2.0.0-informational?style=flat-square) ![AppVersion: 0.12.5](https://img.shields.io/badge/AppVersion-0.12.5-informational?style=flat-square)
+![Version: v2.0.1](https://img.shields.io/badge/Version-v2.0.1-informational?style=flat-square) ![AppVersion: 0.12.5](https://img.shields.io/badge/AppVersion-0.12.5-informational?style=flat-square)
 
 Helm chart to deploy Pixelfed
 
@@ -139,7 +139,7 @@ Helm chart to deploy Pixelfed
 | config.storage.PF_LOCAL_AVATAR_TO_CLOUD | string | `"false"` |  |
 | existingSecret | string | `""` | The name of a secret to use instead of generating it from input values |
 | image.repo | string | `"ghcr.io/grrywlsn/pixelfed-helm"` | repo to pull the Pixelfed image from |
-| image.tag | string | `"v2.0.0"` | version of the image to pull |
+| image.tag | string | `"v2.0.1"` | version of the image to pull |
 | secret.APP_KEY | string | `""` | The secret key used to encrypt user sessions and other sensitive data (REQUIRED) |
 | secret.PIXELFED_PUSHGATEWAY_KEY | string | `""` | The secret key used to authenticate the Pixelfed Pushgateway, for app notifications |
 | secret.aws.AWS_ACCESS_KEY_ID | string | `""` | The AWS access key ID to use for S3 storage |
