@@ -74,6 +74,7 @@ COPY --from=build /usr/bin/composer /usr/bin/composer
 
 # Install runtime dependencies
 RUN apk add --no-cache \
+    NGINX_FULL_VERSION=$(apk search -v nginx | grep "^nginx-${NGINX_VERSION}" | head -n 1) && \
     icu-libs \
     imagemagick \
     libjpeg-turbo \
@@ -82,7 +83,7 @@ RUN apk add --no-cache \
     libxpm \
     libzip \
     netcat-openbsd \
-    nginx~=${NGINX_VERSION} \
+    "$NGINX_FULL_VERSION" \
     oniguruma \
     postgresql-libs \
     sed \
