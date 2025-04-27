@@ -265,6 +265,8 @@ secret:
 redis:
   # -- Use the Redis subchart instead of relying on an external Redis server
   internal: true
+  # -- The name to use when installing the Redis subchart (set dynamically in helpers.tpl)
+  fullnameOverride: ""
   # -- Architecture of the Redis server (https://github.com/bitnami/charts/tree/main/bitnami/redis#cluster-topologies)
   architecture: standalone
   auth:

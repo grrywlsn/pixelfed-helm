@@ -148,6 +148,7 @@ Helm chart to deploy Pixelfed
 | image.tag | string | `"v2.1.0"` | version of the image to pull |
 | redis.architecture | string | `"standalone"` | Architecture of the Redis server (https://github.com/bitnami/charts/tree/main/bitnami/redis#cluster-topologies) |
 | redis.auth.enabled | bool | `false` | Whether to enable password authentication for the Redis server |
+| redis.fullnameOverride | string | `""` | The name to use when installing the Redis subchart (set dynamically in helpers.tpl) |
 | redis.internal | bool | `true` | Use the Redis subchart instead of relying on an external Redis server |
 | redis.master.persistence.enabled | bool | `false` | Whether to enable persistence for the Redis server |
 | secret.APP_KEY | string | `""` | The secret key used to encrypt user sessions and other sensitive data (REQUIRED) |
