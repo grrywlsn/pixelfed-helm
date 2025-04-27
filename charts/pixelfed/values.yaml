@@ -261,4 +261,13 @@ secret:
     # -- The Redis password to use
     REDIS_PASSWORD: ""
     # -- The Redis username to use
-    REDIS_USERNAME: ""
+    REDIS_USERNAME: "redis"
+redis:
+  # -- Use the Redis subchart instead of relying on an external Redis server
+  internal: true
+  architecture: standalone
+  auth:
+    enabled: false
+  master:
+    persistence:
+      enabled: false
