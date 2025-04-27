@@ -73,8 +73,9 @@ COPY --from=build /usr/local/etc/php/conf.d/ /usr/local/etc/php/conf.d/
 COPY --from=build /usr/bin/composer /usr/bin/composer
 
 # Install runtime dependencies
-RUN apk add --no-cache \
+RUN apk update && \
     NGINX_FULL_VERSION=$(apk search -v nginx | grep "^nginx-${NGINX_VERSION}" | head -n 1) && \
+    apk add --no-cache \
     icu-libs \
     imagemagick \
     libjpeg-turbo \
