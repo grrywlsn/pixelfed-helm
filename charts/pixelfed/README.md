@@ -145,11 +145,11 @@ Helm chart to deploy Pixelfed
 | config.storage.PF_LOCAL_AVATAR_TO_CLOUD | string | `"false"` |  |
 | existingSecret | string | `""` | The name of a secret to use instead of generating it from input values |
 | image.repo | string | `"ghcr.io/grrywlsn/pixelfed-helm"` | repo to pull the Pixelfed image from |
-| image.tag | string | `"v2.0.1"` | version of the image to pull |
-| redis.architecture | string | `"standalone"` |  |
-| redis.auth.enabled | bool | `false` |  |
+| image.tag | string | `"v2.1.0"` | version of the image to pull |
+| redis.architecture | string | `"standalone"` | Architecture of the Redis server (https://github.com/bitnami/charts/tree/main/bitnami/redis#cluster-topologies) |
+| redis.auth.enabled | bool | `false` | Whether to enable password authentication for the Redis server |
 | redis.internal | bool | `true` | Use the Redis subchart instead of relying on an external Redis server |
-| redis.master.persistence.enabled | bool | `false` |  |
+| redis.master.persistence.enabled | bool | `false` | Whether to enable persistence for the Redis server |
 | secret.APP_KEY | string | `""` | The secret key used to encrypt user sessions and other sensitive data (REQUIRED) |
 | secret.PIXELFED_PUSHGATEWAY_KEY | string | `""` | The secret key used to authenticate the Pixelfed Pushgateway, for app notifications |
 | secret.aws.AWS_ACCESS_KEY_ID | string | `""` | The AWS access key ID to use for S3 storage |
