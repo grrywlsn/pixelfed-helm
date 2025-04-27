@@ -1,6 +1,6 @@
 # pixelfed
 
-![Version: v2.1.0](https://img.shields.io/badge/Version-v2.1.0-informational?style=flat-square) ![AppVersion: 0.12.5](https://img.shields.io/badge/AppVersion-0.12.5-informational?style=flat-square)
+![Version: v2.1.1](https://img.shields.io/badge/Version-v2.1.1-informational?style=flat-square) ![AppVersion: 0.12.5](https://img.shields.io/badge/AppVersion-0.12.5-informational?style=flat-square)
 
 Helm chart to deploy Pixelfed
 
