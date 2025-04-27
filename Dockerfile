@@ -5,7 +5,7 @@ FROM php:8.4-fpm-alpine3.20 AS build
 # ARG PIXELFED_VERSION="v0.12.5"
 ARG PIXELFED_VERSION="3d6348225b1c0b9e6c6cc0275e39e35a504395b2"
 
-ARG NGINX_VERSION=1.28.0-r0
+ARG NGINX_VERSION=1.28.0
 
 # Install build dependencies
 RUN apk add --no-cache \
@@ -82,7 +82,7 @@ RUN apk add --no-cache \
     libxpm \
     libzip \
     netcat-openbsd \
-    nginx=${NGINX_VERSION} \
+    nginx~=${NGINX_VERSION} \
     oniguruma \
     postgresql-libs \
     sed \
