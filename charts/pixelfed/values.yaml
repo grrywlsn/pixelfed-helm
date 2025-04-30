@@ -2,7 +2,7 @@ image:
   # -- repo to pull the Pixelfed image from
   repo: "ghcr.io/grrywlsn/pixelfed-helm"
   # -- version of the image to pull
-  tag: "v2.0.6"
+  tag: "v2.0.7"
 # -- The name of a secret to use instead of generating it from input values
 existingSecret: ""
 config:
