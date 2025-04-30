@@ -3,36 +3,51 @@
   "extends": [
     "config:recommended"
   ],
-  "additionalBranchPrefix": "{{baseDir}}-",
+  "additionalBranchPrefix": "{{packageFileDir}}-",
   "packageRules": [
-      {
-          "matchManagers": ["dockerfile", "regex"],
-          "enabled": true,
-          "groupName": "{{baseDir}}-dockerfile",
-          "groupSlug": "dockerfile"
-      },
-      {
-        "matchUpdateTypes": [
-          "patch",
-          "pin",
-          "digest"
-        ],
-        "addLabels": ["patch"]
-      },
-      {
-        "matchUpdateTypes": ["minor"],
-        "addLabels": ["minor"],
-        "automerge": true
-      },
-      {
-        "matchUpdateTypes": ["major"],
-        "addLabels": ["major"]
-      }
+    {
+      "matchManagers": [
+        "dockerfile",
+        "custom.regex"
+      ],
+      "enabled": true,
+      "groupName": "{{packageFileDir}}-dockerfile",
+      "groupSlug": "dockerfile"
+    },
+    {
+      "matchUpdateTypes": [
+        "patch",
+        "pin",
+        "digest"
+      ],
+      "addLabels": [
+        "patch"
+      ]
+    },
+    {
+      "matchUpdateTypes": [
+        "minor"
+      ],
+      "addLabels": [
+        "minor"
+      ],
+      "automerge": true
+    },
+    {
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "addLabels": [
+        "major"
+      ]
+    }
   ],
   "customManagers": [
     {
       "customType": "regex",
-      "fileMatch": ["^Dockerfile$"],
+      "fileMatch": [
+        "^Dockerfile$"
+      ],
       "matchStrings": [
         "# renovate: datasource=repology depName=alpine_(?<currentValue>\\d+[._]\\d+)"
       ],
@@ -44,7 +59,9 @@
     },
     {
       "customType": "regex",
-      "fileMatch": ["^Dockerfile$"],
+      "fileMatch": [
+        "^Dockerfile$"
+      ],
       "matchStrings": [
         "datasource=(?<datasource>repology) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\sENV .*?_VERSION=(?<currentValue>.*)\\s"
       ]
