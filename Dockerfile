@@ -3,7 +3,7 @@ FROM php:8.4-fpm-alpine3.20 AS build
 
 # renovate: datasource=github-releases depName=pixelfed/pixelfed
 # ARG PIXELFED_VERSION="v0.12.5"
-ARG PIXELFED_VERSION="3d6348225b1c0b9e6c6cc0275e39e35a504395b2"
+ARG PIXELFED_VERSION="b475c43e9317a21f76459c6c36e23e458f9a0c60"
 
 # Install build dependencies
 RUN apk add --no-cache \
