@@ -42,7 +42,7 @@ spec:
             periodSeconds: 2
             failureThreshold: 150
           livenessProbe:
-            failureThreshold: 3
+            failureThreshold: 6
             initialDelaySeconds: 5
             periodSeconds: 5
             successThreshold: 1
