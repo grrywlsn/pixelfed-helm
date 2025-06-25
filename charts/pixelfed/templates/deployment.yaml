@@ -42,17 +42,21 @@ spec:
             periodSeconds: 2
             failureThreshold: 150
           livenessProbe:
+            failureThreshold: 3
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            successThreshold: 1
             tcpSocket:
               port: 8080
-            initialDelaySeconds: 5
-            periodSeconds: 2
-            failureThreshold: 2
+            timeoutSeconds: 4
           readinessProbe:
+            failureThreshold: 4
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            successThreshold: 1
             tcpSocket:
               port: 8080
-            initialDelaySeconds: 5
-            periodSeconds: 2
-            failureThreshold: 2
+            timeoutSeconds: 4
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
           volumeMounts:
