@@ -1,6 +1,6 @@
 # pixelfed
 
-![Version: v3.4.3](https://img.shields.io/badge/Version-v3.4.3-informational?style=flat-square) ![AppVersion: 0.12.5](https://img.shields.io/badge/AppVersion-0.12.5-informational?style=flat-square)
+![Version: v3.5.0](https://img.shields.io/badge/Version-v3.5.0-informational?style=flat-square) ![AppVersion: 0.12.5](https://img.shields.io/badge/AppVersion-0.12.5-informational?style=flat-square)
 
 Helm chart to deploy Pixelfed
 
@@ -145,7 +145,7 @@ Helm chart to deploy Pixelfed
 | config.storage.PF_LOCAL_AVATAR_TO_CLOUD | string | `"false"` |  |
 | existingSecret | string | `""` | The name of a secret to use instead of generating it from input values |
 | image.repo | string | `"ghcr.io/grrywlsn/pixelfed-helm"` | repo to pull the Pixelfed image from |
-| image.tag | string | `"v3.4.3"` | version of the image to pull |
+| image.tag | string | `"v3.5.0"` | version of the image to pull |
 | redis.architecture | string | `"standalone"` | Architecture of the Redis server (https://github.com/bitnami/charts/tree/main/bitnami/redis#cluster-topologies) |
 | redis.auth.enabled | bool | `false` | Whether to enable password authentication for the Redis server |
 | redis.fullnameOverride | string | `""` | The name to use when installing the Redis subchart (set dynamically in helpers.tpl) |
