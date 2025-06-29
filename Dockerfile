@@ -109,7 +109,7 @@ USER www-data
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY start.sh /usr/local/bin/start.sh
 COPY php.ini /usr/local/etc/php/php.ini
-COPY my-pool.conf /usr/local/etc/php-fpm.d/www.conf
+COPY pool-override.conf /usr/local/etc/php-fpm.d/www.conf
 
 # Expose port
 EXPOSE 8080 9000
