@@ -145,7 +145,7 @@ Helm chart to deploy Pixelfed
 | config.storage.PF_LOCAL_AVATAR_TO_CLOUD | string | `"false"` |  |
 | existingSecret | string | `""` | The name of a secret to use instead of generating it from input values |
 | image.repo | string | `"ghcr.io/grrywlsn/pixelfed-helm"` | repo to pull the Pixelfed image from |
-| image.tag | string | `"v3.7.6"` | version of the image to pull |
+| image.tag | string | `"v3.7.7"` | version of the image to pull |
 | redis.architecture | string | `"standalone"` | Architecture of the Redis server (https://github.com/bitnami/charts/tree/main/bitnami/redis#cluster-topologies) |
 | redis.auth.enabled | bool | `false` | Whether to enable password authentication for the Redis server |
 | redis.fullnameOverride | string | `""` | The name to use when installing the Redis subchart (set dynamically in helpers.tpl) |
