@@ -57,6 +57,11 @@ spec:
             tcpSocket:
               port: 8080
             timeoutSeconds: 4
+          resources:
+            requests:
+              memory: {{ .Values.resources.memory.request | default "2Gi" }}
+            limits:
+              memory: {{ .Values.resources.memory.limit | default "2Gi" }}
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
           volumeMounts:
