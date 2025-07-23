@@ -1,6 +1,6 @@
 # pixelfed
 
-![Version: v3.7.8](https://img.shields.io/badge/Version-v3.7.8-informational?style=flat-square) ![AppVersion: 0.12.5](https://img.shields.io/badge/AppVersion-0.12.5-informational?style=flat-square)
+![Version: v3.8.0](https://img.shields.io/badge/Version-v3.8.0-informational?style=flat-square) ![AppVersion: 0.12.5](https://img.shields.io/badge/AppVersion-0.12.5-informational?style=flat-square)
 
 Helm chart to deploy Pixelfed
 
@@ -151,6 +151,8 @@ Helm chart to deploy Pixelfed
 | redis.fullnameOverride | string | `""` | The name to use when installing the Redis subchart (set dynamically in helpers.tpl) |
 | redis.internal | bool | `true` | Use the Redis subchart instead of relying on an external Redis server |
 | redis.master.persistence.enabled | bool | `false` | Whether to enable persistence for the Redis server |
+| resources.memory.limit | string | `"2Gi"` | The maximum amount of memory to allow for the Pixelfed container |
+| resources.memory.request | string | `"2Gi"` | The amount of memory to request for the Pixelfed container |
 | secret.APP_KEY | string | `""` | The secret key used to encrypt user sessions and other sensitive data (REQUIRED) |
 | secret.PIXELFED_PUSHGATEWAY_KEY | string | `""` | The secret key used to authenticate the Pixelfed Pushgateway, for app notifications |
 | secret.aws.AWS_ACCESS_KEY_ID | string | `""` | The AWS access key ID to use for S3 storage |

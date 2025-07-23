@@ -5,6 +5,12 @@ image:
   tag: "v3.7.8"
 # -- The name of a secret to use instead of generating it from input values
 existingSecret: ""
+resources:
+  memory:
+    # -- The amount of memory to request for the Pixelfed container
+    request: "2Gi"
+    # -- The maximum amount of memory to allow for the Pixelfed container
+    limit: "2Gi"
 config:
   # -- The name for your Pixelfed server (how it appears in the UI) (REQUIRED)
   APP_NAME: ""
