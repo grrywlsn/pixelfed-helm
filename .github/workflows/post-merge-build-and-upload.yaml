@@ -45,7 +45,7 @@ jobs:
         version: ${{ steps.extracttag.outputs.clean_tag }}
 
     # Major version
-    - uses: softprops/action-gh-release@v1
+    - uses: softprops/action-gh-release@v2
       if: contains(github.event.pull_request.labels.*.name, 'major')
       with:
         generate_release_notes: true
@@ -58,7 +58,7 @@ jobs:
         echo "VERSION_TAG=${{ steps.semvers.outputs.v_major }}" >> $GITHUB_ENV
 
     # Minor version
-    - uses: softprops/action-gh-release@v1
+    - uses: softprops/action-gh-release@v2
       if: contains(github.event.pull_request.labels.*.name, 'minor')
       with:
         generate_release_notes: true
@@ -71,7 +71,7 @@ jobs:
         echo "VERSION_TAG=${{ steps.semvers.outputs.v_minor }}" >> $GITHUB_ENV
 
     # Patch version
-    - uses: softprops/action-gh-release@v1
+    - uses: softprops/action-gh-release@v2
       if: contains(github.event.pull_request.labels.*.name, 'patch')
       with:
         generate_release_notes: true
