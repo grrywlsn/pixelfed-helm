@@ -3,6 +3,20 @@ entries:
   pixelfed:
   - apiVersion: v2
     appVersion: 0.12.5
+    created: "2025-08-23T12:52:47.324771311Z"
+    dependencies:
+    - condition: redis.internal
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 22.0.5
+    description: Helm chart to deploy Pixelfed
+    digest: 90aa3fc1988bf190e5a54a4a37675098ccba1fbd97012e4464fbe1bd6f5d812c
+    name: pixelfed
+    urls:
+    - https://github.com/grrywlsn/pixelfed-helm/releases/download/pixelfed-v4.0.2/pixelfed-v4.0.2.tgz
+    version: v4.0.2
+  - apiVersion: v2
+    appVersion: 0.12.5
     created: "2025-08-18T23:14:46.827435096Z"
     dependencies:
     - condition: redis.internal
@@ -757,4 +771,4 @@ entries:
     urls:
     - https://github.com/grrywlsn/pixelfed-helm/releases/download/pixelfed-v1.0.0/pixelfed-v1.0.0.tgz
     version: v1.0.0
-generated: "2025-08-18T23:14:46.827612869Z"
+generated: "2025-08-23T12:52:47.324955787Z"
