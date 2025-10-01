@@ -282,3 +282,25 @@ redis:
     persistence:
       # -- Whether to enable persistence for the Redis server
       enabled: false
+  global:
+    security:
+      allowInsecureImages: true
+  # bitnamilegacy/redis/bitnami/redis:8.2.1-debian-12-r0
+  image:
+    repository: bitnamilegacy/redis
+  # bitnamilegacy/redis/bitnami/redis-sentinel:8.2.1-debian-12-r0
+  sentinel:
+    image:
+      repository: bitnamilegacy/redis-sentinel
+  # bitnamilegacy/redis/bitnami/redis-exporter:1.76.0-debian-12-r0
+  metrics:
+    image:
+      repository: bitnamilegacy/redis-exporter
+  # bitnamilegacy/redis/bitnami/kubectl:1.33.4-debian-12-r0
+  kubectl:
+    image:
+      repository: bitnamilegacy/kubectl
+  # bitnamilegacy/redis/bitnami/os-shell:12-debian-12-r51
+  os-shell:
+    image:
+      repository: bitnamilegacy/os-shell
