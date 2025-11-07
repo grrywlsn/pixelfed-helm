@@ -123,7 +123,7 @@ data:
   PHP_UPLOAD_MAX_FILESIZE: {{ .Values.config.php.PHP_UPLOAD_MAX_FILESIZE | quote }}
   QUEUE_DRIVER: {{ .Values.config.redis.QUEUE_DRIVER | quote }}
   REDIS_CLIENT: {{ .Values.config.redis.REDIS_CLIENT | quote }}
-  REDIS_HOST: {{ ternary (printf "%s-valkey" .Release.Name) .Values.config.redis.REDIS_HOST .Values.redis.internal | quote }}
+  REDIS_HOST: {{ ternary (printf "%s-valkey" .Release.Name) .Values.config.redis.REDIS_HOST .Values.valkey.internal | quote }}
   REDIS_PORT: {{ .Values.config.redis.REDIS_PORT | quote }}
   REDIS_PREFIX: {{ .Values.config.redis.REDIS_PREFIX | quote }}
   REDIS_SCHEME: {{ .Values.config.redis.REDIS_SCHEME | quote }}
