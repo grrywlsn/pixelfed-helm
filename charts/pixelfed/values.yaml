@@ -268,39 +268,12 @@ secret:
     REDIS_PASSWORD: ""
     # -- The Redis username to use
     REDIS_USERNAME: ""
-redis:
-  # -- Use the Redis subchart instead of relying on an external Redis server
+valkey:
+  # -- Use the Valkey subchart instead of relying on an external valkey server
   internal: true
-  # -- The name to use when installing the Redis subchart (set dynamically in helpers.tpl)
-  fullnameOverride: ""
-  # -- Architecture of the Redis server (https://github.com/bitnami/charts/tree/main/bitnami/redis#cluster-topologies)
-  architecture: standalone
   auth:
-    # -- Whether to enable password authentication for the Redis server
+    # -- Whether to enable password authentication for the Valkey server
     enabled: false
-  master:
-    persistence:
-      # -- Whether to enable persistence for the Redis server
-      enabled: false
-  global:
-    security:
-      allowInsecureImages: true
-  # bitnamilegacy/redis/bitnami/redis:8.2.1-debian-12-r0
-  image:
-    repository: bitnamilegacy/redis
-  # bitnamilegacy/redis/bitnami/redis-sentinel:8.2.1-debian-12-r0
-  sentinel:
-    image:
-      repository: bitnamilegacy/redis-sentinel
-  # bitnamilegacy/redis/bitnami/redis-exporter:1.76.0-debian-12-r0
-  metrics:
-    image:
-      repository: bitnamilegacy/redis-exporter
-  # bitnamilegacy/redis/bitnami/kubectl:1.33.4-debian-12-r0
-  kubectl:
-    image:
-      repository: bitnamilegacy/kubectl
-  # bitnamilegacy/redis/bitnami/os-shell:12-debian-12-r51
-  os-shell:
-    image:
-      repository: bitnamilegacy/os-shell
+  dataStorage:
+    # -- Whether to enable persistence for the Valkey server
+    enabled: false

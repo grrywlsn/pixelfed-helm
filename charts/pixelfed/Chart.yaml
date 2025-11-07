@@ -4,7 +4,7 @@ version: v3.8.2
 description: Helm chart to deploy Pixelfed
 appVersion: 0.12.5
 dependencies:
-  - name: redis
-    version: "23.2.1"
-    repository: "https://charts.bitnami.com/bitnami"
-    condition: redis.internal
+  - name: valkey
+    version: "0.7.7"
+    repository: "https://valkey.io/valkey-helm/"
+    condition: valkey.internal
