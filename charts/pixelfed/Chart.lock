@@ -1,6 +1,6 @@
 dependencies:
-- name: redis
-  repository: https://charts.bitnami.com/bitnami
-  version: 23.2.1
-digest: sha256:333f1ced73c5012e8bf0395ee251297cc20a61df3f3d854606f0015d57edf3a7
-generated: "2025-10-21T12:51:39.076706685Z"
+- name: valkey
+  repository: https://valkey.io/valkey-helm/
+  version: 0.7.7
+digest: sha256:b305e94c76ee5d31733f7771e9f70f2fddb5f92ca4fe4a5e32325a7d77aeab0f
+generated: "2025-11-07T10:26:19.814023Z"
