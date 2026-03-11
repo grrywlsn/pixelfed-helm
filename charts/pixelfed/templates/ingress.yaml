@@ -1,3 +1,4 @@
+{{- if .Values.ingress.enabled }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -24,3 +25,4 @@ spec:
     - hosts:
         - {{ required "config.domain.APP_DOMAIN is required but missing" .Values.config.domain.APP_DOMAIN | quote }}
       secretName: "{{ include "pixelfed.fullname" . }}-tls"
+{{- end }}
