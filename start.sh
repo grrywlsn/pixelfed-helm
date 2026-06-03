@@ -19,13 +19,19 @@ php artisan storage:link
 php artisan migrate --force
 php artisan import:cities
 php artisan instance:actor
-php artisan passport:keys --force
+# Passport: use PASSPORT_PRIVATE_KEY / PASSPORT_PUBLIC_KEY from the environment (e.g. K8s
+# ExternalSecret) when set so keys are stable across restarts; otherwise generate files once.
+if [ -n "${PASSPORT_PRIVATE_KEY}" ] && [ -n "${PASSPORT_PUBLIC_KEY}" ]; then
+  echo "Passport keys supplied via environment; skipping passport:keys"
+else
+  php artisan passport:keys --force
+fi
 php artisan route:cache
 php artisan view:cache
 php artisan config:cache
 php artisan horizon:install
 
-if [[ -n "${PIXELFED_PUSHGATEWAY_KEY}" ]]; then
+if [ -n "${PIXELFED_PUSHGATEWAY_KEY}" ]; then
   php artisan app:push-gateway-refresh
 fi
 
