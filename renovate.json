@@ -45,8 +45,8 @@
   "customManagers": [
     {
       "customType": "regex",
-      "fileMatch": [
-        "^Dockerfile$"
+      "managerFilePatterns": [
+        "/^Dockerfile$/"
       ],
       "matchStrings": [
         "# renovate: datasource=repology depName=alpine_(?<currentValue>\\d+[._]\\d+)"
@@ -59,12 +59,13 @@
     },
     {
       "customType": "regex",
-      "fileMatch": [
-        "^Dockerfile$"
+      "managerFilePatterns": [
+        "/^Dockerfile$/"
       ],
       "matchStrings": [
-        "datasource=(?<datasource>repology) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\sENV .*?_VERSION=(?<currentValue>.*)\\s"
-      ]
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)(?: packageName=(?<packageName>\\S+))?(?: versioning=(?<versioning>\\S+))?\\s+(?:ARG|ENV) \\w+_VERSION=\"?(?<currentValue>[^\"\\s]+)\"?"
+      ],
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
     }
   ]
 }
