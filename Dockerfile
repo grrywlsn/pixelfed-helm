@@ -2,7 +2,7 @@
 FROM php:8.4-fpm-alpine3.20 AS build
 
 # renovate: datasource=github-releases depName=pixelfed/pixelfed
-ARG PIXELFED_VERSION="v0.14.2"
+ARG PIXELFED_VERSION="v0.14.3"
 # ARG PIXELFED_VERSION="b68cc2c93086e9fc3bc44eb632410cd435610e41"
 
 # Install build dependencies
