@@ -135,7 +135,7 @@ jobs:
 
     - name: Run chart-releaser
       if: github.ref == 'refs/heads/main'
-      uses: helm/chart-releaser-action@v1.8.0
+      uses: helm/chart-releaser-action@v1.9.0
       with:
         mark_as_latest: false # keep the actual MR message as the latest instead of the helm chart release
       env:
