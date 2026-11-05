@@ -150,6 +150,7 @@ Helm chart to deploy Pixelfed
 | removeRemote.batch | int | `1000` | Status rows to scan per window |
 | removeRemote.days | int | `90` | Remove remote statuses fetched more than this many days ago |
 | removeRemote.dryRun | bool | `false` | Report what would be removed without changing anything |
+| removeRemote.enabled | bool | `true` | Whether to create the weekly remote status purge CronJob |
 | removeRemote.force | bool | `true` | Skip the confirmation prompt |
 | removeRemote.limit | int | `0` | Stop after removing this many statuses (0 = no limit) |
 | removeRemote.skipMedia | bool | `false` | Keep statuses whose media is cached on local or cloud storage |
