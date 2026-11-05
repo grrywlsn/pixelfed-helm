@@ -21,8 +21,22 @@ spec:
                 - php
                 - artisan
                 - statuses:remove-remote
-                - --days=90
+                - --days={{ .Values.removeRemote.days }}
+                - --batch={{ .Values.removeRemote.batch }}
+                - --limit={{ .Values.removeRemote.limit }}
+                - --sleep={{ .Values.removeRemote.sleep }}
+                {{- if .Values.removeRemote.startId }}
+                - --start-id={{ .Values.removeRemote.startId }}
+                {{- end }}
+                {{- if .Values.removeRemote.skipMedia }}
+                - --skip-media
+                {{- end }}
+                {{- if .Values.removeRemote.dryRun }}
+                - --dry-run
+                {{- end }}
+                {{- if .Values.removeRemote.force }}
                 - --force
+                {{- end }}
               envFrom:
                 - configMapRef:
                     name: "{{ include "pixelfed.fullname" . }}"
