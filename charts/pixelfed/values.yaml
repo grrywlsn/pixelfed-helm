@@ -14,6 +14,23 @@ resources:
     request: "2Gi"
     # -- The maximum amount of memory to allow for the Pixelfed container
     limit: "2Gi"
+removeRemote:
+  # -- Remove remote statuses fetched more than this many days ago
+  days: 90
+  # -- Status rows to scan per window
+  batch: 1000
+  # -- Stop after removing this many statuses (0 = no limit)
+  limit: 0
+  # -- Milliseconds to pause between windows, to let replicas catch up
+  sleep: 0
+  # -- Resume below this status id (printed by an interrupted run)
+  startId: ""
+  # -- Keep statuses whose media is cached on local or cloud storage
+  skipMedia: false
+  # -- Report what would be removed without changing anything
+  dryRun: false
+  # -- Skip the confirmation prompt
+  force: true
 config:
   # -- The name for your Pixelfed server (how it appears in the UI) (REQUIRED)
   APP_NAME: ""
