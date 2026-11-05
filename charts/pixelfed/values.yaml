@@ -15,6 +15,8 @@ resources:
     # -- The maximum amount of memory to allow for the Pixelfed container
     limit: "2Gi"
 removeRemote:
+  # -- Whether to create the weekly remote status purge CronJob
+  enabled: true
   # -- Remove remote statuses fetched more than this many days ago
   days: 90
   # -- Status rows to scan per window

@@ -1,3 +1,4 @@
+{{- if .Values.removeRemote.enabled }}
 apiVersion: batch/v1
 kind: CronJob
 metadata:
@@ -44,3 +45,4 @@ spec:
                     name: "{{ if .Values.existingSecret }}{{ .Values.existingSecret }}{{ else }}{{ include "pixelfed.fullname" . }}{{ end }}"
   schedule: "0 3 * * 0"
   successfulJobsHistoryLimit: 3
+{{- end }}
