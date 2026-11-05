@@ -1,0 +1,32 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: "{{ .Release.Name }}-remove-remote"
+spec:
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          name: "{{ .Release.Name }}-remove-remote"
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: remove-remote
+              image: "{{ .Values.image.repo }}:{{ .Values.image.tag }}"
+              imagePullPolicy: Always
+              workingDir: /var/www/html
+              command:
+                - php
+                - artisan
+                - statuses:remove-remote
+                - --days=90
+                - --force
+              envFrom:
+                - configMapRef:
+                    name: "{{ include "pixelfed.fullname" . }}"
+                - secretRef:
+                    name: "{{ if .Values.existingSecret }}{{ .Values.existingSecret }}{{ else }}{{ include "pixelfed.fullname" . }}{{ end }}"
+  schedule: "0 3 * * 0"
+  successfulJobsHistoryLimit: 3
