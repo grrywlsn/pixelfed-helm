@@ -296,6 +296,6 @@ valkey:
   auth:
     # -- Whether to enable password authentication for the Valkey server
     enabled: false
-  dataStorage:
+  persistence:
     # -- Whether to enable persistence for the Valkey server
     enabled: false
