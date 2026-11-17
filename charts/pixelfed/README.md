@@ -169,7 +169,7 @@ Helm chart to deploy Pixelfed
 | secret.redis.REDIS_PASSWORD | string | `""` | The Redis password to use |
 | secret.redis.REDIS_USERNAME | string | `""` | The Redis username to use |
 | valkey.auth.enabled | bool | `false` | Whether to enable password authentication for the Valkey server |
-| valkey.dataStorage.enabled | bool | `false` | Whether to enable persistence for the Valkey server |
+| valkey.persistence.enabled | bool | `false` | Whether to enable persistence for the Valkey server |
 | valkey.internal | bool | `true` | Use the Valkey subchart instead of relying on an external valkey server |
 
 ----------------------------------------------
