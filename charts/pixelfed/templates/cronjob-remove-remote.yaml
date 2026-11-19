@@ -3,6 +3,8 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: "{{ .Release.Name }}-remove-remote"
+  annotations:
+    reloader.stakater.com/auto: "true"
 spec:
   concurrencyPolicy: Forbid
   failedJobsHistoryLimit: 1
