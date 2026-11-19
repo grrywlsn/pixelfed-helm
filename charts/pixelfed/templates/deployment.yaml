@@ -4,6 +4,8 @@ metadata:
   name: {{ include "pixelfed.fullname" . }}
   labels:
     app: {{ include "pixelfed.fullname" . }}
+  annotations:
+    reloader.stakater.com/auto: "true"
 spec:
   minReadySeconds: 1
   progressDeadlineSeconds: 120
