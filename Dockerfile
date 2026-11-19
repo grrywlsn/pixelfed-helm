@@ -1,6 +1,8 @@
 # Stage 1: Build stage
-# 8.4.27 fixes CVE-2026-109618 and CVE-2026-109619. Alpine 3.20 images stopped at PHP 8.4.8.
-FROM php:8.5.12-fpm-alpine3.24 AS build
+# 8.5.13 fixes the 19 Nov 2026 security release (CVE-2026-129289 PHP-FPM request smuggling,
+# CVE-2026-129474, CVE-2026-129496, CVE-2026-115560, ...). 8.5.12 fixed PHP2Shell
+# (CVE-2026-109618, CVE-2026-109619). Alpine 3.20 images stopped at PHP 8.4.8.
+FROM php:8.5.13-fpm-alpine3.24 AS build
 
 # renovate: datasource=github-releases depName=pixelfed/pixelfed
 ARG PIXELFED_VERSION="v0.15.2"
@@ -64,7 +66,7 @@ RUN git clone https://github.com/pixelfed/pixelfed.git . \
 RUN composer install --no-dev --optimize-autoloader  --ignore-platform-reqs
 
 # Stage 2: Production stage
-FROM php:8.5.12-fpm-alpine3.24
+FROM php:8.5.13-fpm-alpine3.24
 
 # Copy runtime dependencies from build stage
 COPY --from=build /usr/local/lib/php/extensions/ /usr/local/lib/php/extensions/
