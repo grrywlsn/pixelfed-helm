@@ -23,13 +23,18 @@ jobs:
 
     - name: 'Get Previous tag'
       id: previoustag
-      uses: "WyriHaximus/github-action-get-previous-tag@v2"
-      with:
-        fallback: "${{ env.VERSION_TAG }}"
-        # only consider release tags, not the pixelfed-v* chart release tags
-        pattern: "v*[0-9].*[0-9].*[0-9]"
-      env:
-        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      run: |
+        git fetch --tags --force
+        # Chart releases are tagged both vX.Y.Z and pixelfed-vX.Y.Z. Use the
+        # highest semver, not the newest commit, so a v6 chart is not followed
+        # by a v5 tag that happens to be newer.
+        tag=$(git tag -l 'v*' 'pixelfed-v*' | sed 's/^pixelfed-//' | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | sort -V | tail -1)
+        if [ -z "$tag" ]; then
+          echo "No version tag found" >&2
+          exit 1
+        fi
+        echo "Highest version tag is $tag"
+        echo "tag=$tag" >> "$GITHUB_OUTPUT"
 
     - name: Extract previous tag
       id: extracttag
