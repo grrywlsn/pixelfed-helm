@@ -3,6 +3,20 @@ entries:
   pixelfed:
   - apiVersion: v2
     appVersion: 0.12.5
+    created: "2026-11-19T16:57:54.749442209Z"
+    dependencies:
+    - condition: valkey.internal
+      name: valkey
+      repository: https://valkey.io/valkey-helm/
+      version: 1.0.0
+    description: Helm chart to deploy Pixelfed
+    digest: 2b9894cbfdbd3eff8c56b89a2d1c2fa900eba1fb6b055b98e61bca2dc5aa4951
+    name: pixelfed
+    urls:
+    - https://github.com/grrywlsn/pixelfed-helm/releases/download/pixelfed-v6.0.2/pixelfed-v6.0.2.tgz
+    version: v6.0.2
+  - apiVersion: v2
+    appVersion: 0.12.5
     created: "2026-11-18T16:36:40.213617Z"
     dependencies:
     - condition: valkey.internal
@@ -1555,4 +1569,4 @@ entries:
     urls:
     - https://github.com/grrywlsn/pixelfed-helm/releases/download/pixelfed-v1.0.0/pixelfed-v1.0.0.tgz
     version: v1.0.0
-generated: "2026-11-19T16:49:01.689929054Z"
+generated: "2026-11-19T16:57:54.749829572Z"
