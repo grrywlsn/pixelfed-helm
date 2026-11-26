@@ -30,8 +30,10 @@ spec:
           envFrom:
             - configMapRef:
                 name: "{{ include "pixelfed.fullname" . }}"
+            {{- range $name := (include "pixelfed.secretNames" . | splitList ",") }}
             - secretRef:
-                name: "{{ if .Values.existingSecret }}{{ .Values.existingSecret }}{{ else }}{{ include "pixelfed.fullname" . }}{{ end }}"
+                name: {{ $name | quote }}
+            {{- end }}
           ports:
             - containerPort: 8080
               name: http
@@ -73,8 +75,10 @@ spec:
           envFrom:
             - configMapRef:
                 name: "{{ include "pixelfed.fullname" . }}"
+            {{- range $name := (include "pixelfed.secretNames" . | splitList ",") }}
             - secretRef:
-                name: "{{ if .Values.existingSecret }}{{ .Values.existingSecret }}{{ else }}{{ include "pixelfed.fullname" . }}{{ end }}"
+                name: {{ $name | quote }}
+            {{- end }}
           image: {{ .Values.image.repo }}:{{ .Values.image.tag }}
           workingDir: /var/www/html
           command: ["php"]

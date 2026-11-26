@@ -8,6 +8,10 @@ ingress:
   enabled: true
 # -- The name of a secret to use instead of generating it from input values
 existingSecret: ""
+# -- Additional existing secrets to envFrom into the app containers (e.g. a
+#    second ExternalSecret with manually-managed keys). The chart-generated
+#    secret is skipped when existingSecret or existingSecrets is set.
+existingSecrets: []
 resources:
   memory:
     # -- The amount of memory to request for the Pixelfed container
